@@ -1,0 +1,7 @@
+<form action="" (ngSubmit)="delete()">
+  <div class="mb-3">
+    <label for="prodID" class="form-label">Enter product ID to delete</label>
+    <input name="id" [(ngModel)]="id" min="1" required type="number" class="form-control" id="prodID" placeholder="ID" />
+  </div>
+  <button [disabled]="id == undefined" class="btn btn-primary" type="submit">Delete</button>
+</form>
