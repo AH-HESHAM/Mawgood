@@ -8,6 +8,7 @@ import { ProductDescSplitterPipe } from '../../pipes/product-desc-splitter-pipe'
 import { CurrencyPipe } from '@angular/common';
 import { Mybtn } from '../mybtn/mybtn';
 import { FormsModule } from '@angular/forms';
+import { StaticData } from '../../services/static-data';
 
 @Component({
   selector: 'app-products',
@@ -23,33 +24,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './products.css',
 })
 export class Products {
-  dataExtractor: DataGetter;
-  productsList: IProducts[];
 
-  fullDesc: boolean[];
-  totalPrice: number;
+  filteredProductsList: IProducts[] = [];
+  fullDesc: boolean[] = [];
+  totalPrice: number = 0;
 
-  @Input() chosenCategoryFilter: string;
-  @Input() searchByText: string;
-  @Input() minPrice: number;
-  @Input() maxPrice: number;
-  filteredProductsList: IProducts[];
+  @Input() chosenCategoryFilter: string = 'all';
+  @Input() searchByText: string = '';
+  @Input() minPrice: number = 0;
+  @Input() maxPrice: number = Number.MAX_VALUE;
 
   @Output() total = new EventEmitter<number>();
 
-  constructor() {
-    this.dataExtractor = new JsonDataGetter();
-    this.productsList = this.dataExtractor.getData();
-
-    this.fullDesc = Array(this.productsList.length).fill(false);
-
-    this.totalPrice = 0;
-
-    this.filteredProductsList = [];
-    this.chosenCategoryFilter = 'all';
-    this.searchByText = '';
-    this.minPrice = 0;
-    this.maxPrice = Number.MAX_VALUE;
+  constructor(private dataService: StaticData) {
   }
 
   flipDesc(id: number): void {
@@ -68,49 +55,31 @@ export class Products {
   }
 
   ngOnInit(): void {
-    if (this.chosenCategoryFilter === 'all') {
-      this.filteredProductsList = this.productsList;
-    }
+    this.initializeData();
+    this.closeAllDesc();
+  }
+
+  private initializeData(): void {
+    this.filteredProductsList = this.dataService.getAllProducts();
+  }
+  private closeAllDesc(): void {
+    this.fullDesc = Array(this.filteredProductsList.length).fill(false);
   }
   ngOnChanges(): void {
     this.filterProducts();
   }
 
   filterProducts() {
-    this.filterByCategory();
-    this.filterByText();
-    this.filterByPrice();
-  }
-
-  private filterByCategory() {
-    if (this.chosenCategoryFilter === 'all') this.filteredProductsList = this.productsList;
-    else
-      this.filteredProductsList = this.productsList.filter(
-        (product) => product.category === this.chosenCategoryFilter,
-      );
-  }
-
-  private filterByText() {
-    if (this.searchByText.trim() !== '') {
-      this.filteredProductsList = this.filteredProductsList.filter((product) => {
-        return (
-          product.title.includes(this.searchByText) ||
-          product.description.includes(this.searchByText)
-        );
-      });
-    }
-  }
-
-  private filterByPrice() {
-    if (this.minPrice < 0 || this.maxPrice < 0) alert('Enter positive price');
+    if (this.minPrice < 0 || this.maxPrice < 0 || this.maxPrice < this.minPrice) alert('Enter valid prices');
     else {
-      if(this.maxPrice ==null)
-        this.maxPrice = Number.MAX_VALUE;
-      if(this.minPrice == null)
-        this.minPrice = 0
-      this.filteredProductsList = this.filteredProductsList.filter((product) => {
-        return product.price >= +this.minPrice && product.price <= +this.maxPrice;
-      });
+      if (this.maxPrice == null) this.maxPrice = Number.MAX_VALUE;
+      if (this.minPrice == null) this.minPrice = 0;
+      this.filteredProductsList = this.dataService.filterProducts(
+        this.chosenCategoryFilter,
+        this.searchByText,
+        this.minPrice,
+        this.maxPrice,
+      );
     }
   }
 }
