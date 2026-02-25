@@ -1,1 +1,51 @@
-<p>update-product works!</p>
+<form #prdForm="ngForm" (ngSubmit)="update()" class="row g-3 needs-validation" validate>
+  <div style="display: block" class="col-md-4">
+    <label for="id" class="form-label">ID</label>
+    <input
+      #idInd="ngModel"
+      name="id"
+      [(ngModel)]="newPrd.id"
+      type="number"
+      class="form-control"
+      id="id"
+      value=""
+      required
+      min="1"
+    />
+    <div [hidden]="idInd.valid || idInd.untouched">
+      <small class="alert alert-danger" [hidden]="!idInd.errors?.['required']">
+        this field is required
+      </small>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="title" class="form-label">Title</label>
+    <input
+      #nameInp="ngModel"
+      name="title"
+      [(ngModel)]="newPrd.title"
+      type="text"
+      class="form-control"
+      id="title"
+      value=""
+    />
+  </div>
+
+  <div class="col-md-4">
+    <label for="desc" class="form-label">Description</label>
+    <div class="input-group has-validation">
+      <input
+        name="desc"
+        [(ngModel)]="newPrd.description"
+        type="text"
+        class="form-control"
+        id="desc"
+        aria-describedby="inputGroupPrepend"
+        #descInp="ngModel"
+      />
+    </div>
+  </div>
+  <div class="col-12">
+    <button [disabled]="prdForm.invalid" class="btn btn-primary" type="submit">Update Product</button>
+  </div>
+</form>

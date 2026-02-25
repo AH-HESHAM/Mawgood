@@ -79,8 +79,8 @@ export class StaticData {
     this.saveToStorage();
   }
 
-  update(id: number, updates: Partial<IProducts>): void {
-    const index = this.productsList.findIndex((p) => p.id === id);
+  update( updates: Partial<IProducts>): void {
+    const index = this.productsList.findIndex((p) => p.id === updates.id);
     if (index !== -1) {
       const existingProduct = this.productsList[index];
       const cleanUpdates = Object.fromEntries(
