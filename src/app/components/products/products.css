@@ -1,0 +1,25 @@
+.productsList {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  margin: 30px;
+}
+
+.descExpand {
+  background: transparent;
+  border: none;
+}
+
+.buy{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .productsList {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    row-gap: 30px;
+} */

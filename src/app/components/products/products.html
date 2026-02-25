@@ -1,0 +1,23 @@
+<div class="productsList">
+  @for (product of filteredProductsList; track product.id; let indx = $index) {
+    <div class="card" style="width: 18rem" appProductCardDirective>
+      <img [src]="product.imgUrl" class="card-img-top" alt="not exist" appCardImgDirective />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">
+          {{ fullDesc[indx] ? product.description : (product.description | productDescSplitter) }}
+          <button class="descExpand" (click)="flipDesc(indx)">
+            {{ !fullDesc[indx] ? '...' : '<' }}
+          </button>
+        </p>
+
+        <h6 class="card-title">{{ product.price | currency }}</h6>
+
+        <div class="buy">
+          <app-mybtn text="Buy" (clicked)="buy(inp, product)"> </app-mybtn>
+          <input #inp type="number" />
+        </div>
+      </div>
+    </div>
+  }
+</div>
