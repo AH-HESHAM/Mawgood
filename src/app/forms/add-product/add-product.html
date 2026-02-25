@@ -1,1 +1,71 @@
-<p>add-product works!</p>
+<form #prdForm="ngForm" (ngSubmit)="add()" class="row g-3 needs-validation" validate>
+  <div class="col-md-4">
+    <label for="id" class="form-label">ID</label>
+    <input
+      #idInd="ngModel"
+      name="id"
+      [(ngModel)]="newPrd.id"
+      type="number"
+      class="form-control"
+      id="id"
+      value=""
+      required
+      min="1"
+    />
+    <div [hidden]="idInd.valid || idInd.untouched">
+      <small class="alert alert-danger" [hidden]="!idInd.errors?.['required']">
+        this field is required
+      </small>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="title" class="form-label">Title</label>
+    <input
+      #nameInp="ngModel"
+      minlength="8"
+      name="title"
+      [(ngModel)]="newPrd.title"
+      type="text"
+      class="form-control"
+      id="title"
+      value=""
+      required
+    />
+    <div [hidden]="nameInp.valid || nameInp.untouched">
+      <small class="alert alert-danger" [hidden]="!nameInp.errors?.['required']">
+        this field is required
+      </small>
+      <small class="alert alert-danger" [hidden]="!nameInp.errors?.['minlength']">
+        Name must be 8 char at least
+      </small>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label for="desc" class="form-label">Description</label>
+    <div class="input-group has-validation">
+      <input
+        name="desc"
+        [(ngModel)]="newPrd.description"
+        type="text"
+        class="form-control"
+        id="desc"
+        aria-describedby="inputGroupPrepend"
+        required
+        #descInp="ngModel"
+        minlength="20"
+      />
+      <div [hidden]="descInp.valid || descInp.untouched">
+        <small class="alert alert-danger" [hidden]="!descInp.errors?.['required']">
+          this field is required
+        </small>
+        <small class="alert alert-danger" [hidden]="!descInp.errors?.['minlength']">
+          Description must be 20 char at least
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <button [disabled]="prdForm.invalid" class="btn btn-primary" type="submit">Add Product</button>
+  </div>
+</form>
