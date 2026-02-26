@@ -35,30 +35,14 @@ export class Filters {
   informParent() {
     let tempMax = this.maxPrice,
       tempMin = this.minPrice;
-    if (this.minPrice > this.maxPrice) {
-      tempMax = Number.MAX_VALUE;
-      tempMin = Number.MIN_VALUE;
 
-      this.minPrice = this.maxPrice = null;
+    if (tempMax == null) tempMax = Number.MAX_VALUE;
+    if (tempMin == null) tempMin = 0;
+    if (tempMin >= 0 && tempMax >= 0) {
+      this.categoryEvent.emit(this.chosenCategory);
+      this.textEvent.emit(this.searchText);
+      this.minPriceEvent.emit(tempMin);
+      this.maxPriceEvent.emit(tempMax);
     }
-    if (this.minPrice < 0 || this.minPrice == null) {
-      this.minPrice = null;
-      tempMin = 0;
-    }
-
-    if (this.maxPrice < 0 || this.maxPrice == null) {
-      this.maxPrice = null;
-      tempMax = Number.MAX_VALUE;
-    }
-
-    // if(this.maxPrice == null || this.minPrice == null){
-    //   tempMax = Number.MAX_VALUE;
-    //   tempMin = Number.MIN_VALUE;
-    // }
-
-    this.categoryEvent.emit(this.chosenCategory);
-    this.textEvent.emit(this.searchText);
-    this.minPriceEvent.emit(tempMin);
-    this.maxPriceEvent.emit(tempMax);
   }
 }
