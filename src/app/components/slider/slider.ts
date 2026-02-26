@@ -31,6 +31,6 @@ export class Slider {
     setInterval(() => {
       this.moveForward();
       this.cdr.detectChanges();
-    }, 5000);
+    }, 3000);
   }
 }
