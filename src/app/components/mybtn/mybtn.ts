@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrl: './mybtn.css',
 })
 export class Mybtn {
-
+  @Input() btnColor:string = "";
   @Input() text: string = 'ok';
   @Output() clicked = new EventEmitter<void>();
 
