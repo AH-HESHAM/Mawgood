@@ -11,14 +11,14 @@ import { Filters } from '../filters/filters';
 export class Body {
   chosenCategory: string;
   searchText: string;
-  minPrice: any;
-  maxPrice: any;
+  minPrice: number;
+  maxPrice: number;
   TotalPrice: number;
   constructor() {
     this.chosenCategory = 'all';
     this.searchText = '';
-    this.minPrice = null;
-    this.maxPrice = null;
+    this.minPrice = 0;
+    this.maxPrice = Number.MAX_VALUE;
     this.TotalPrice = 0;
   }
   receivedPrice(price: number) {

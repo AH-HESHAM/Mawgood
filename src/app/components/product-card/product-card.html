@@ -1,0 +1,20 @@
+<div class="card" style="width: 18rem" appProductCardDirective>
+  <img [src]="product.imgUrl" class="card-img-top" alt="not exist" appCardImgDirective />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text">
+      {{ fullDesc ? product.description : (product.description | productDescSplitter) }}
+      <button class="descExpand" (click)="flipDesc()">
+        {{ !fullDesc ? '...' : '<' }}
+      </button>
+    </p>
+
+    <h6 class="card-title">{{ product.price | currency }}</h6>
+
+    <div class="buy">
+      <!-- <app-mybtn text="Buy" (clicked)="buy(inp, product)"> </app-mybtn> -->
+      <app-mybtn text="Buy" > </app-mybtn>
+      <input class="quantityOrder" placeholder="Order quantity" #inp type="number" min="1" />
+    </div>
+  </div>
+</div>

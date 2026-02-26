@@ -1,25 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProducts } from '../../models/iproducts';
-import { DataGetter } from '../../models/data-getter';
-import { JsonDataGetter } from '../../models/json-data-getter';
-import { ProductCardDirective } from '../../directives/product-card-directive';
-import { CardImgDirective } from '../../directives/card-img-directive';
-import { ProductDescSplitterPipe } from '../../pipes/product-desc-splitter-pipe';
-import { CurrencyPipe } from '@angular/common';
-import { Mybtn } from '../mybtn/mybtn';
 import { FormsModule } from '@angular/forms';
 import { StaticData } from '../../services/static-data';
+import { ProductCard } from '../product-card/product-card';
 
 @Component({
   selector: 'app-products',
-  imports: [
-    ProductCardDirective,
-    CardImgDirective,
-    ProductDescSplitterPipe,
-    CurrencyPipe,
-    Mybtn,
-    FormsModule,
-  ],
+  imports: [FormsModule, ProductCard],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
@@ -37,10 +24,6 @@ export class Products {
 
   constructor(private dataService: StaticData) {}
 
-  flipDesc(id: number): void {
-    this.fullDesc[id] = !this.fullDesc[id];
-  }
-
   buy(inp: any, p: IProducts) {
     if (inp.value > p.stock || inp.value < 1) {
       alert('enter valid count');
@@ -54,15 +37,12 @@ export class Products {
 
   ngOnInit(): void {
     this.initializeData();
-    this.closeAllDesc();
   }
 
   private initializeData(): void {
     this.filteredProductsList = this.dataService.getAllProducts();
   }
-  private closeAllDesc(): void {
-    this.fullDesc = Array(this.filteredProductsList.length).fill(false);
-  }
+
   ngOnChanges(): void {
     this.filterProducts();
   }

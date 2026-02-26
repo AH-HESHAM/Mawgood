@@ -4,24 +4,4 @@
   justify-content: space-around;
 }
 
-.card {
-  margin: 30px;
-}
 
-.descExpand {
-  background: transparent;
-  border: none;
-}
-
-.buy {
-  display: flex;
-  justify-content: space-between;
-}
-
-.quantityOrder {
-  margin: 0px 5px;
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid;
-  padding-left: 10px;
-}
