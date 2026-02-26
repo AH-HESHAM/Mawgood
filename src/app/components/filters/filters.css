@@ -1,0 +1,10 @@
+.filters {
+  justify-content: center;
+  display: flex;
+}
+
+input{
+    margin: 0px 10px;
+    border-radius: 10px;
+    border: 1px solid;
+}

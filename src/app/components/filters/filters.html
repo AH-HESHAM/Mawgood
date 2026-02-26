@@ -1,0 +1,33 @@
+<div class="filters">
+  <select
+    class="btn btn-secondary dropdown-toggle"
+    [(ngModel)]="chosenCategory"
+    (ngModelChange)="informParent()"
+  >
+    <option selected value="all">All</option>
+    @for (category of categories; track category) {
+      <option [value]="category">{{ category }}</option>
+    }
+  </select>
+  <input
+    type="text"
+    placeholder="Enter product name"
+    [(ngModel)]="searchText"
+    (ngModelChange)="informParent()"
+  />
+  <input
+    min="0"
+    type="number"
+    placeholder="Enter min price"
+    [(ngModel)]="minPrice"
+    (ngModelChange)="informParent()"
+  />
+
+  <input
+    min="1"
+    type="number"
+    placeholder="Enter max price"
+    [(ngModel)]="maxPrice"
+    (ngModelChange)="informParent()"
+  />
+</div>

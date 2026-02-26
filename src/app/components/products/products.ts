@@ -24,7 +24,6 @@ import { StaticData } from '../../services/static-data';
   styleUrl: './products.css',
 })
 export class Products {
-
   filteredProductsList: IProducts[] = [];
   fullDesc: boolean[] = [];
   totalPrice: number = 0;
@@ -36,8 +35,7 @@ export class Products {
 
   @Output() total = new EventEmitter<number>();
 
-  constructor(private dataService: StaticData) {
-  }
+  constructor(private dataService: StaticData) {}
 
   flipDesc(id: number): void {
     this.fullDesc[id] = !this.fullDesc[id];
@@ -70,16 +68,11 @@ export class Products {
   }
 
   filterProducts() {
-    if (this.minPrice < 0 || this.maxPrice < 0 || this.maxPrice < this.minPrice) alert('Enter valid prices');
-    else {
-      if (this.maxPrice == null) this.maxPrice = Number.MAX_VALUE;
-      if (this.minPrice == null) this.minPrice = 0;
-      this.filteredProductsList = this.dataService.filterProducts(
-        this.chosenCategoryFilter,
-        this.searchByText,
-        this.minPrice,
-        this.maxPrice,
-      );
-    }
+    this.filteredProductsList = this.dataService.filterProducts(
+      this.chosenCategoryFilter,
+      this.searchByText,
+      this.minPrice,
+      this.maxPrice,
+    );
   }
 }
