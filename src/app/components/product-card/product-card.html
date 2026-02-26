@@ -12,8 +12,7 @@
     <h6 class="card-title">{{ product.price | currency }}</h6>
 
     <div class="buy">
-      <!-- <app-mybtn text="Buy" (clicked)="buy(inp, product)"> </app-mybtn> -->
-      <app-mybtn text="Buy" > </app-mybtn>
+      <app-mybtn text="Buy" (clicked)="buy(inp, product)"> </app-mybtn>
       <input class="quantityOrder" placeholder="Order quantity" #inp type="number" min="1" />
     </div>
   </div>

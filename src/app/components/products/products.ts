@@ -13,8 +13,10 @@ import { ProductCard } from '../product-card/product-card';
 export class Products {
   filteredProductsList: IProducts[] = [];
   fullDesc: boolean[] = [];
+
   totalPrice: number = 0;
 
+  @Input() curPrice: number = 0;
   @Input() chosenCategoryFilter: string = 'all';
   @Input() searchByText: string = '';
   @Input() minPrice: number = 0;
@@ -23,17 +25,6 @@ export class Products {
   @Output() total = new EventEmitter<number>();
 
   constructor(private dataService: StaticData) {}
-
-  buy(inp: any, p: IProducts) {
-    if (inp.value > p.stock || inp.value < 1) {
-      alert('enter valid count');
-      inp.value = '';
-      return;
-    }
-    this.totalPrice += inp.value * p.price;
-    this.total.emit(this.totalPrice);
-    p.stock -= inp.value;
-  }
 
   ngOnInit(): void {
     this.initializeData();
@@ -54,5 +45,12 @@ export class Products {
       this.minPrice,
       this.maxPrice,
     );
+  }
+
+  receiveCurPrice(price: number) {
+    this.curPrice = price;
+    console.log(this.curPrice)
+    this.totalPrice += this.curPrice;
+    this.total.emit(this.totalPrice);
   }
 }
