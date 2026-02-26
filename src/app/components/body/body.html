@@ -1,17 +1,22 @@
-<h1>Total Price : {{ TotalPrice }}</h1>
 <div class="container">
-  <app-filters
-    (categoryEvent)="receiveCategory($event)"
-    (textEvent)="receiveSearchText($event)"
-    (minPriceEvent)="receiveMinPrice($event)"
-    (maxPriceEvent)="receiveMaxPrice($event)"
-  >
-  </app-filters>
-  <app-products
-    [chosenCategoryFilter]="chosenCategory"
-    [searchByText]="searchText"
-    [minPrice]="minPrice"
-    [maxPrice]="maxPrice"
-    (total)="receivedPrice($event)"
-  ></app-products>
+  <div class="products_header">
+    <h1>Total Price : {{ TotalPrice }}</h1>
+    <app-filters
+      (categoryEvent)="receiveCategory($event)"
+      (textEvent)="receiveSearchText($event)"
+      (minPriceEvent)="receiveMinPrice($event)"
+      (maxPriceEvent)="receiveMaxPrice($event)"
+    >
+    </app-filters>
+  </div>
+
+  <div class="products">
+    <app-products
+      [chosenCategoryFilter]="chosenCategory"
+      [searchByText]="searchText"
+      [minPrice]="minPrice"
+      [maxPrice]="maxPrice"
+      (total)="receivedPrice($event)"
+    ></app-products>
+  </div>
 </div>

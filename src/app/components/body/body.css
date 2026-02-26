@@ -1,0 +1,8 @@
+.products_header {
+  z-index: 1000;
+  position: fixed;
+}
+.products{
+    padding-top: 100px;
+    
+}
