@@ -1,5 +1,5 @@
 <div class="productsList">
-  @for (product of filteredProductsList; track product.id; let indx = $index) {
+  @for (product of filteredProductsList$ | async; track product.id; let indx = $index) {
     <app-product-card (curPrice)="receiveCurPrice($event)" [product]="product"></app-product-card>
   }
 </div>

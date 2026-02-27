@@ -288,7 +288,7 @@ export class JsonDataGetter implements DataGetter {
         id: item.id,
         title: item.title,
         price: item.price,
-        imgUrl: item.imgUrl,
+        images: item.imgUrl,
         category: item.category,
         description: item.description,
         stock: item.stock,

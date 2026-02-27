@@ -3,15 +3,19 @@ import { IProducts } from '../../models/iproducts';
 import { FormsModule } from '@angular/forms';
 import { StaticData } from '../../services/static-data';
 import { ProductCard } from '../product-card/product-card';
+import { DynamicData } from '../../services/dynamic-data';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-products',
-  imports: [FormsModule, ProductCard],
+  imports: [FormsModule, ProductCard,AsyncPipe],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
 export class Products {
-  filteredProductsList: IProducts[] = [];
+  // filteredProductsList: IProducts[] = [];
+  filteredProductsList$!: Observable<IProducts[]>;
   fullDesc: boolean[] = [];
 
   totalPrice: number = 0;
@@ -24,22 +28,23 @@ export class Products {
 
   @Output() total = new EventEmitter<number>();
 
-  constructor(private dataService: StaticData) {}
+  constructor(private dataService: DynamicData) {}
+  // constructor(private dataService: StaticData) {}
 
   ngOnInit(): void {
     this.initializeData();
   }
 
   private initializeData(): void {
-    this.filteredProductsList = this.dataService.getAllProducts();
+    this.filteredProductsList$ = this.dataService.getAllProducts();
   }
 
   ngOnChanges(): void {
     this.filterProducts();
   }
 
-  filterProducts() {
-    this.filteredProductsList = this.dataService.filterProducts(
+  private filterProducts() {
+    this.filteredProductsList$ = this.dataService.filterProducts(
       this.chosenCategoryFilter,
       this.searchByText,
       this.minPrice,
@@ -49,7 +54,6 @@ export class Products {
 
   receiveCurPrice(price: number) {
     this.curPrice = price;
-    console.log(this.curPrice)
     this.totalPrice += this.curPrice;
     this.total.emit(this.totalPrice);
   }
