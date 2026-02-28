@@ -1,0 +1,78 @@
+<form action="" [formGroup]="userRegister">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">User Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter User Name"
+      formControlName="fullName"
+    />
+  </div>
+  <div [hidden]="fullName?.valid || fullName?.untouched">
+    @if (fullName?.errors?.['pattern']) {
+      <small class="alert alert-danger">enter 4 letters only</small>
+    }
+    @if (fullName?.errors?.['required']) {
+      <small class="alert alert-danger">this field is required</small>
+    }
+  </div>
+  <div formGroupName="address">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">City</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Enter User Name"
+        formControlName="city"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Street</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Enter User Name"
+        formControlName="street"
+      />
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter User Name"
+      formControlName="password"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Confirmed Password </label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter User Name"
+      formControlName="confirmedpassword"
+    />
+  </div>
+  @if (
+    confirmedpassword?.touched &&
+    password?.touched &&
+    (userRegister?.errors?.['unMatchedPassword'] || confirmedpassword?.invalid)
+  ) {
+    <div class="alert alert-danger">
+      @if (confirmedpassword?.errors?.['required']) {
+        <small>this field is required</small>
+      }
+      @if (userRegister?.errors?.['unMatchedPassword']) {
+        <small>confirmedpassword must match password</small>
+      }
+    </div>
+  }
+  
+  <button class="btn btn-dark" [disabled]="userRegister.invalid">Submit</button>
+</form>

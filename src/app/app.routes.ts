@@ -6,6 +6,7 @@ import { Body } from './components/body/body';
 import { AddProduct } from './forms/add-product/add-product';
 import { UpdateProduct } from './forms/update-product/update-product';
 import { DeleteProduct } from './forms/delete-product/delete-product';
+import { ReactiveForm } from './forms/reactive-form/reactive-form';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddProduct },
       { path: 'updataProduct', component: UpdateProduct },
       { path: 'deleteProduct', component: DeleteProduct },
+      { path: 'login', component: ReactiveForm },
     ],
   },
   { path: '**', component: Error },
