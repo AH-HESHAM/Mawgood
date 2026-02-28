@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordMatched } from '../../validators/passwordValidator';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-reactive-form',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './reactive-form.html',
   styleUrl: './reactive-form.css',
 })

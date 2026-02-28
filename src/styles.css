@@ -3,7 +3,15 @@ body {
   font-family: 'Times New Roman', Times, serif;
   font-size: large;
   padding-top: 65px;
-  /* background-color: var(--background-color); */
+  background-color: var(--background-color);
+}
+
+body.dark {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: large;
+  padding-top: 65px;
+  background: #121212;
+  color: white;
 }
 
 /* so far random colors  */

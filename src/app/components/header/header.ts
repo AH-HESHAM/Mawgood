@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,5 +8,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
+  isDark = signal(false);
 
+  constructor() {
+    effect(() => {
+      document.body.classList.toggle('dark', this.isDark());
+    });
+  }
+
+  toggleTheme() {
+    this.isDark.update((v) => !v);
+  }
 }
