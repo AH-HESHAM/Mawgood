@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-products',
-  imports: [FormsModule, ProductCard,AsyncPipe],
+  imports: [FormsModule, ProductCard, AsyncPipe],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
@@ -36,7 +36,8 @@ export class Products {
   }
 
   private initializeData(): void {
-    this.filteredProductsList$ = this.dataService.getAllProducts();
+    this.dataService.loadProducts();
+    this.filterProducts();
   }
 
   ngOnChanges(): void {

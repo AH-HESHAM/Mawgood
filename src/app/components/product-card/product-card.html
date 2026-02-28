@@ -1,5 +1,5 @@
 <div class="card" style="width: 18rem" appProductCardDirective>
-  <img [src]="product.images[0]" class="card-img-top" alt="not exist" appCardImgDirective />
+  <img [src]="product.images ? product.images[0] : null" class="card-img-top" alt="not exist" appCardImgDirective />
   <div class="card-body">
     <h5 class="card-title">{{ product.title }}</h5>
     <p class="card-text">

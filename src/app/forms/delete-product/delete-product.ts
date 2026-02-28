@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StaticData } from '../../services/static-data';
 import { Router } from '@angular/router';
+import { DynamicData } from '../../services/dynamic-data';
 
 @Component({
   selector: 'app-delete-product',
@@ -12,12 +13,13 @@ import { Router } from '@angular/router';
 export class DeleteProduct {
   id: number | undefined;
   constructor(
-    private staticData: StaticData,
+    // private dataService: StaticData,
+    private dataService: DynamicData,
     private router: Router,
   ) {}
 
   delete() {
-    this.staticData.delete(this.id?this.id:0);
+    this.dataService.delete(this.id?this.id:0).subscribe();
     this.router.navigateByUrl('/products');
   }
 }

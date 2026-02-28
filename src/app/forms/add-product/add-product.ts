@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { StaticData } from '../../services/static-data';
 import { Router } from '@angular/router';
 import { IProducts } from '../../models/iproducts';
+import { DynamicData } from '../../services/dynamic-data';
 
 @Component({
   selector: 'app-add-product',
@@ -13,12 +14,14 @@ import { IProducts } from '../../models/iproducts';
 export class AddProduct {
   newPrd: IProducts = {} as IProducts;
   constructor(
-    private staticData: StaticData,
+    // private dataService: StaticData,
+    private dataService: DynamicData,
     private router: Router,
   ) {}
 
   add() {
-    this.staticData.post(this.newPrd);
+    this.newPrd.price = 1;
+    this.dataService.post(this.newPrd).subscribe();
     this.router.navigateByUrl('/products');
   }
 }
