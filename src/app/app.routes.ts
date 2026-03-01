@@ -7,6 +7,7 @@ import { AddProduct } from './forms/add-product/add-product';
 import { UpdateProduct } from './forms/update-product/update-product';
 import { DeleteProduct } from './forms/delete-product/delete-product';
 import { ReactiveForm } from './forms/reactive-form/reactive-form';
+import { adminGuardGuard } from './guards/admin-guard-guard';
 
 export const routes: Routes = [
   {
@@ -16,9 +17,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
       { path: 'products', component: Body },
-      { path: 'addProduct', component: AddProduct },
-      { path: 'updataProduct', component: UpdateProduct },
-      { path: 'deleteProduct', component: DeleteProduct },
+      { path: 'addProduct', component: AddProduct, canActivate: [adminGuardGuard] },
+      { path: 'updataProduct', component: UpdateProduct, canActivate: [adminGuardGuard] },
+      { path: 'deleteProduct', component: DeleteProduct, canActivate: [adminGuardGuard] },
       { path: 'login', component: ReactiveForm },
     ],
   },

@@ -1,5 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
+import { inject } from '@angular/core/primitives/di';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +11,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   isDark = signal(false);
-
-  constructor() {
+  constructor(public auth: AuthService) {
     effect(() => {
       document.body.classList.toggle('dark', this.isDark());
     });
