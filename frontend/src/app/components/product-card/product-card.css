@@ -31,3 +31,7 @@
 .out-of-stock {
   background-color: red;
 }
+
+.quantity-err {
+  color: red;
+}

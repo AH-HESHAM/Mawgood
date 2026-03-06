@@ -39,7 +39,7 @@ export class Filters {
 
     if (tempMax == null) tempMax = Number.MAX_VALUE;
     if (tempMin == null) tempMin = 0;
-    if (tempMin >= 0 && tempMax >= 0) {
+    if (tempMin >= 0 && tempMax >= 0 && tempMax >= tempMin) {
       this.priceErrMsg = "";
       this.categoryEvent.emit(this.chosenCategory);
       this.textEvent.emit(this.searchText);

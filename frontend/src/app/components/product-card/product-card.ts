@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 export class ProductCard {
   @Input() product = {} as IProducts;
   @Output() curPrice = new EventEmitter<number>();
-  err = '';
+  quantityErrMsg = '';
 
   fullDesc: boolean = false;
 
@@ -33,7 +33,7 @@ export class ProductCard {
 
   validQuantity(quantity: number, stock: number): boolean {
     if (this.positiveQuantity(quantity) && this.checkStock(quantity, stock)) {
-      this.err = '';
+      this.quantityErrMsg = '';
       return true;
     }
     return false;
@@ -41,7 +41,7 @@ export class ProductCard {
 
   positiveQuantity(quantity: number): boolean {
     if (quantity < 0) {
-      this.err = 'Invalid quantity';
+      this.quantityErrMsg = 'Invalid quantity';
       return false;
     }
     return true;
@@ -49,7 +49,7 @@ export class ProductCard {
 
   checkStock(quantity: number, stock: number): boolean {
     if (quantity > stock) {
-      this.err = 'Quantity is not available';
+      this.quantityErrMsg = 'Quantity is not available';
       return false;
     }
     return true;
