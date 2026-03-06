@@ -1,5 +1,17 @@
 <div class="card" style="width: 18rem" appProductCardDirective>
-  <img [src]="product.images ? product.images[0] : null" class="card-img-top" alt="not exist" appCardImgDirective />
+  <h5
+    [class.available]="product.stock > 1"
+    [class.last-item]="product.stock == 1"
+    [class.out-of-stock]="product.stock <= 0"
+  >
+    {{ product.stock > 1 ? 'Available' : product.stock > 0 ? 'Last Item' : 'Out of stock' }}
+  </h5>
+  <img
+    [src]="product.images ? product.images[0] : null"
+    class="card-img-top"
+    alt="not exist"
+    appCardImgDirective
+  />
   <div class="card-body">
     <h5 class="card-title">{{ product.title }}</h5>
     <p class="card-text">

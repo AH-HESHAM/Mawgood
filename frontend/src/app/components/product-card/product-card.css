@@ -19,3 +19,23 @@
   border: 1px solid;
   padding-left: 10px;
 }
+
+.available,
+.last-item,
+.out-of-stock {
+  color: black;
+  padding: 5px;
+  width: fit-content;
+}
+
+.available {
+  background-color: green;
+}
+
+.last-item {
+  background-color: rgb(255, 230, 0);
+}
+
+.out-of-stock {
+  background-color: red;
+}
