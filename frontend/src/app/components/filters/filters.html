@@ -1,6 +1,6 @@
 <div class="filters">
   <select
-    class="btn btn-secondary dropdown-toggle"
+    class="btn btn-primary dropdown-toggle"
     [(ngModel)]="chosenCategory"
     (ngModelChange)="informParent()"
   >
@@ -11,14 +11,14 @@
   </select>
   <input
     type="text"
-    placeholder="Enter product name"
+    placeholder="Search"
     [(ngModel)]="searchText"
     (ngModelChange)="informParent()"
   />
   <input
     min="1"
     type="number"
-    placeholder="Enter min price"
+    placeholder="Minimum price"
     [(ngModel)]="minPrice"
     (ngModelChange)="informParent()"
   />
@@ -26,8 +26,10 @@
   <input
     min="1"
     type="number"
-    placeholder="Enter max price"
+    placeholder="Maximum price"
     [(ngModel)]="maxPrice"
     (ngModelChange)="informParent()"
   />
+
+  <div class="price-error">{{priceErrMsg}}</div>
 </div>
