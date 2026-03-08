@@ -10,7 +10,7 @@ export class DynamicData {
   private productsSubject = new BehaviorSubject<IProducts[]>([]);
   products$ = this.productsSubject.asObservable();
 
-  private apiUrl = 'http://localhost:2000/products';
+  private apiUrl = 'http://localhost:3000/products';
 
   constructor(private http: HttpClient) {}
 
@@ -56,7 +56,7 @@ export class DynamicData {
 
   // ADD
   post(product: IProducts): Observable<IProducts> {
-    product.id = product.id.toString()
+    product.id = product.id
     return this.http.post<IProducts>(this.apiUrl, product).pipe(
       tap((newProduct) => {
         const current = this.productsSubject.value;
@@ -77,7 +77,7 @@ export class DynamicData {
 
   // PATCH
   update(changes: Partial<IProducts>): Observable<IProducts> {
-    return this.http.patch<IProducts>(`${this.apiUrl}/${changes.id?.toString()}`, changes).pipe(
+    return this.http.patch<IProducts>(`${this.apiUrl}/${changes.id}`, changes).pipe(
       tap((updatedProduct) => {
         const updated = this.productsSubject.value.map((p) =>
           p.id == changes.id ? updatedProduct : p,
