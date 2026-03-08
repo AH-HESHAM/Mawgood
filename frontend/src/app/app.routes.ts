@@ -8,6 +8,7 @@ import { UpdateProduct } from './forms/update-product/update-product';
 import { DeleteProduct } from './forms/delete-product/delete-product';
 import { Signup } from './forms/signup-form/signup-form';
 import { adminGuardGuard } from './guards/admin-guard-guard';
+import { Login } from './forms/login/login';
 
 export const routes: Routes = [
   {
@@ -20,7 +21,8 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddProduct, canActivate: [adminGuardGuard] },
       { path: 'updataProduct', component: UpdateProduct, canActivate: [adminGuardGuard] },
       { path: 'deleteProduct', component: DeleteProduct, canActivate: [adminGuardGuard] },
-      { path: 'login', component: Signup },
+      { path: 'signup', component: Signup },
+      { path: 'login', component: Login },
     ],
   },
   { path: '**', component: Error },

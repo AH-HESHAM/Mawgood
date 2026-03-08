@@ -1,0 +1,27 @@
+<form action="" [formGroup]="userRegister">
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email</label>
+      <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter Email"
+      formControlName="email"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter User Name"
+      formControlName="password"
+      />
+    </div>
+    
+  
+  <button class="btn btn-dark" [disabled]="userRegister.invalid" (click)="login()">Submit</button>
+</form>

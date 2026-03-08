@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordMatched } from '../../validators/passwordValidator';
 import { NgClass } from '@angular/common';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
@@ -12,7 +14,7 @@ import { NgClass } from '@angular/common';
 
 export class Signup {
   userRegister: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.userRegister = fb.group(
       {
         fullName: ['', [Validators.required]],
@@ -41,7 +43,15 @@ export class Signup {
 
   Signup() {
     if (this.userRegister.valid) {
-      console.log(this.userRegister.value);
+      this.authService.register(this.userRegister.value).subscribe({
+        next: (response) => {
+          console.log('User registered successfully:', response);
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error('Error registering user:', error);
+        },
+      });
     }
   }
 }
