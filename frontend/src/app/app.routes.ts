@@ -6,7 +6,7 @@ import { Body } from './components/body/body';
 import { AddProduct } from './forms/add-product/add-product';
 import { UpdateProduct } from './forms/update-product/update-product';
 import { DeleteProduct } from './forms/delete-product/delete-product';
-import { ReactiveForm } from './forms/reactive-form/reactive-form';
+import { Signup } from './forms/signup-form/signup-form';
 import { adminGuardGuard } from './guards/admin-guard-guard';
 
 export const routes: Routes = [
@@ -20,7 +20,7 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddProduct, canActivate: [adminGuardGuard] },
       { path: 'updataProduct', component: UpdateProduct, canActivate: [adminGuardGuard] },
       { path: 'deleteProduct', component: DeleteProduct, canActivate: [adminGuardGuard] },
-      { path: 'login', component: ReactiveForm },
+      { path: 'login', component: Signup },
     ],
   },
   { path: '**', component: Error },
