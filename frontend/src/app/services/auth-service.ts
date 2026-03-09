@@ -17,7 +17,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
   ) {}
-  isLoggedIn = signal(true);
+  // TODO: change the logic behinf this signal to run true authentication
+  isLoggedIn = signal(false);
 
   toggleRole() {
     this.isAdmin.update((value) => !value);

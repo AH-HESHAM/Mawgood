@@ -11,8 +11,6 @@ import { adminGuardGuard } from './guards/admin-guard-guard';
 import { Login } from './forms/login/login';
 import { authGuard } from './guards/auth-guard';
 import { CartPage } from './components/cart/cart-page/cart-page';
-import { GuestCheckoutPage } from './components/checkout/guest-checkout-page/guest-checkout-page';
-import { UserCheckoutPage } from './components/checkout/user-checkout-page/user-checkout-page';
 import { CheckoutDispatcher } from './components/checkout/checkout-dispatcher/checkout-dispatcher';
 
 export const routes: Routes = [
@@ -25,9 +23,10 @@ export const routes: Routes = [
     path: '',
     component: Main,
     children: [
+      // exposed home and products to allow for guest checkout
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: Home, canActivate: [authGuard] },
-      { path: 'products', component: Body, canActivate: [authGuard] },
+      { path: 'home', component: Home },
+      { path: 'products', component: Body },
       { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
       {
         path: 'updataProduct',
