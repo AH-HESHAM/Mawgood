@@ -21,6 +21,8 @@ export class Signup {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         confirmedpassword: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
+        role: ['', [Validators.required]],
       },
       { validators: [passwordMatched()] },
     );
@@ -39,6 +41,12 @@ export class Signup {
   }
   get confirmedpassword() {
     return this.userRegister.get('confirmedpassword');
+  }
+  get phoneNumber() {
+    return this.userRegister.get('phoneNumber');
+  }
+  get role() {
+    return this.userRegister.get('role');
   }
 
   Signup() {

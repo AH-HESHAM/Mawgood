@@ -75,7 +75,38 @@
           }
         </div>
       }
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="Enter User Name"
+      formControlName="phoneNumber"
+      />
+      </div>
+      <div [hidden]="phoneNumber?.valid || phoneNumber?.untouched">
+        @if (phoneNumber?.errors?.['required']) {
+          <small class="alert alert-danger">this field is required</small>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <select
+          id="role"
+          class="form-control"
+          formControlName="role"
+          [ngClass]="{ 'is-invalid': role?.invalid && (role?.touched || role?.dirty) }"
+        >
+          <option value="" disabled selected>Select a role</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="role?.errors && (role?.touched || role?.dirty)">
+          <div *ngIf="role?.errors?.['required']">Role is required.</div>
+        </div>
+      </div>
   </div>
-  
   <button class="btn btn-dark" [disabled]="userRegister.invalid" (click)="Signup()">Submit</button>
 </form>

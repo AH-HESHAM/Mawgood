@@ -28,4 +28,6 @@ interface IUser{
   fullName: string;
   email: string;
   password: string;
+  role: string;
+  phoneNumber: string;
 }
