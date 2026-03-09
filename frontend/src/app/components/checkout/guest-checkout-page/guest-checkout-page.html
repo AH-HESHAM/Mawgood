@@ -1,1 +1,73 @@
-<p>guest-checkout-page works!</p>
+<div class="checkout-container">
+  <div class="checkout-card">
+    <div class="checkout-header">
+      <h2>Guest Checkout</h2>
+      @if (isConfirmed) {
+        <button class="edit-btn" (click)="editInfo()">Edit Information</button>
+      }
+    </div>
+
+    @if (!isConfirmed) {
+      <form [formGroup]="checkoutForm" (ngSubmit)="confirmInfo()" class="edit-mode">
+        <div class="form-group">
+          <label for="recipientName">Recipient Name</label>
+          <input
+            type="text"
+            id="recipientName"
+            formControlName="recipientName"
+            placeholder="Enter your full name"
+          />
+          @if (
+            checkoutForm.get('recipientName')?.invalid && checkoutForm.get('recipientName')?.touched
+          ) {
+            <div class="error">Name is required.</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="address">Delivery Address</label>
+          <textarea
+            id="address"
+            formControlName="address"
+            rows="3"
+            placeholder="Enter your delivery address"
+          ></textarea>
+          @if (checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched) {
+            <div class="error">Address is required.</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" formControlName="paymentMethod">
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="checkoutForm.invalid" class="save-btn">
+            Confirm Information
+          </button>
+        </div>
+      </form>
+    } @else {
+      <div class="display-mode">
+        <div class="info-group">
+          <label>Recipient Name</label>
+          <p>{{ guestData.recipientName }}</p>
+        </div>
+        <div class="info-group">
+          <label>Delivery Address</label>
+          <p>{{ guestData.address }}</p>
+        </div>
+        <div class="info-group">
+          <label>Payment Method</label>
+          <p>{{ guestData.paymentMethod }}</p>
+        </div>
+        <button class="place-order-btn" (click)="onPlaceOrder()">Place Order</button>
+      </div>
+    }
+  </div>
+</div>

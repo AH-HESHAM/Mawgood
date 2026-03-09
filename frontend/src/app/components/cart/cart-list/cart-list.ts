@@ -23,4 +23,7 @@ export class CartList {
     const product = this.cartProducts().find((item) => item.id === id);
     this.cartService.updateQuantity(id, product!.quantity - 1);
   }
+  removeProduct(id: number) {
+    this.cartService.removeProduct(id);
+  }
 }

@@ -6200,7 +6200,9 @@
                     "category": "beauty",
                     "price": 9.99,
                     "stock": 99,
-                    "images": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp",
+                    "images": [
+                        "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+                    ],
                     "quantity": 2
                 },
                 {
@@ -6210,7 +6212,9 @@
                     "category": "beauty",
                     "price": 19.99,
                     "stock": 34,
-                    "images": "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp",
+                    "images": [
+                        "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+                    ],
                     "quantity": 3
                 },
                 {
@@ -6220,7 +6224,9 @@
                     "category": "beauty",
                     "price": 14.99,
                     "stock": 89,
-                    "images": "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp",
+                    "images": [
+                        "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+                    ],
                     "quantity": 1
                 }
             ]

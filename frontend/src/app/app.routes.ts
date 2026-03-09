@@ -13,6 +13,7 @@ import { authGuard } from './guards/auth-guard';
 import { CartPage } from './components/cart/cart-page/cart-page';
 import { GuestCheckoutPage } from './components/checkout/guest-checkout-page/guest-checkout-page';
 import { UserCheckoutPage } from './components/checkout/user-checkout-page/user-checkout-page';
+import { CheckoutDispatcher } from './components/checkout/checkout-dispatcher/checkout-dispatcher';
 
 export const routes: Routes = [
   /* Pages WITHOUT layout */
@@ -41,10 +42,7 @@ export const routes: Routes = [
       { path: 'cart', component: CartPage },
       {
         path: 'checkout',
-        children: [
-          { path: 'user', component: UserCheckoutPage },
-          { path: 'guest', component: GuestCheckoutPage },
-        ],
+        component: CheckoutDispatcher,
       },
     ],
   },

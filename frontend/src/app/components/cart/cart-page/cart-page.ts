@@ -7,10 +7,11 @@ import { ICartItem } from '../../../models/icart-item';
 import { DecimalPipe } from '@angular/common';
 import { CouponService } from '../../../services/coupon-service';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [CartList, DecimalPipe],
+  imports: [CartList, DecimalPipe, RouterLink],
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.css',
 })
