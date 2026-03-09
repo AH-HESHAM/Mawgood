@@ -15,4 +15,8 @@ router.post("/logout", (req, res) => {
     res.json({ message: "Logout successful" });
 });
 
+router.get("/me", (req, res) => {
+    res.json({ user: req.user });
+});
+
 module.exports = router;
