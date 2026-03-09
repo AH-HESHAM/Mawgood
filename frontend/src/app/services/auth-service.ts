@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   login({ email, password }: { email: string; password: string }): Observable<{ token: string; role: string }> {
-    return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, { email, password });
+    return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true });
   }
 }
 

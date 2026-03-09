@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes")
@@ -12,9 +13,11 @@ connectDB();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.FRONT_URL,
+    credentials: true,
   }),
 );
 

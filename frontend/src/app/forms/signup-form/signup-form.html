@@ -43,21 +43,21 @@
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Password</label>
     <input
-      type="text"
+      type="password"
       class="form-control"
       id="exampleFormControlInput1"
-      placeholder="Enter User Name"
+      placeholder="Enter Password"
       formControlName="password"
       />
     </div>
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Confirmed Password </label>
       <input
-      type="text"
+      type="password"
       class="form-control"
                 [ngClass]="{ 'is-invalid': (confirmedpassword?.invalid && (confirmedpassword?.touched || confirmedpassword?.dirty)) || (userRegister?.errors?.['unMatchedPassword'] && confirmedpassword?.touched) }"
                 id="exampleFormControlInput1"
-      placeholder="Enter User Name"
+      placeholder="Enter Confirmed Password"
       formControlName="confirmedpassword"
       />
     </div>

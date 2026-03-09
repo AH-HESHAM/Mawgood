@@ -28,6 +28,7 @@ export class Login {
       },
       error: (error) => {
         console.error('Error logging in user:', error);
+        alert('Login failed. Please check your credentials and try again.');
       },
     });
   }

@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 async function signup(req, res) {
   try {
@@ -8,7 +9,7 @@ async function signup(req, res) {
     if (existingUser) {
       return res.status(400).json({ error: "Email already exists" });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, parseInt(process.env.HASH_SALT_ROUNDS));
     const newUser = new User({ fullName, email, password: hashedPassword, role, phoneNumber });
     await newUser.save();
     res.json({ message: "User registered successfully" });
@@ -25,7 +26,22 @@ async function login(req, res) {
     if (!user || !isMatch) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
-    res.json({ message: "Login successful" });
+
+    const token = jwt.sign(
+      { email: email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Send token in cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      maxAge: 3600000
+    });
+
+    res.json({ message: "Login successful"});
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
