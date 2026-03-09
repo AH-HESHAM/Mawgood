@@ -1,0 +1,56 @@
+<div class="cart-container">
+  <div class="cart-items">
+    <app-cart-list></app-cart-list>
+  </div>
+  <hr />
+  <div class="cart-summary">
+    <h1>Cart Total</h1>
+    <div class="summary-content">
+      <div class="summary-row">
+        <span class="label">Subtotal</span>
+        <span class="value">{{ getSubtotal() | number: '1.2-2' }} $</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping Price</span>
+        <span class="value">{{ shippingCost | number: '1.2-2' }} $</span>
+      </div>
+
+      @if (coupons.length > 0) {
+        <div class="discounts-section">
+          @for (coupon of coupons; track $index) {
+            <div class="summary-row discount">
+              <span class="label">
+                <button class="remove-coupon" (click)="removeCoupon(coupon.code)">×</button>
+                Coupon "{{ coupon.code }}"
+              </span>
+              <span class="value"
+                >{{ -(getSubtotal() * coupon.discount) / 100 | number: '1.2-2' }} $</span
+              >
+            </div>
+          }
+        </div>
+      }
+
+      <hr />
+
+      <div class="summary-row total">
+        <span class="label">Total</span>
+        <span class="value">{{ getTotalPrice() | number: '1.2-2' }} $</span>
+      </div>
+
+      <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
+
+      <div class="coupon-section">
+        <input
+          type="text"
+          placeholder="Enter coupon code"
+          #coupon
+          (keyup.enter)="addCoupon(coupon.value); coupon.value = ''"
+        />
+        <button class="apply-coupon-btn" (click)="addCoupon(coupon.value); coupon.value = ''">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
