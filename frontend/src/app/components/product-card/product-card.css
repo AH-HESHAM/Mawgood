@@ -12,10 +12,26 @@
   justify-content: space-between;
 }
 
-.quantityOrder {
-  margin: 0px 5px;
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid;
-  padding-left: 10px;
+.available,
+.last-item,
+.out-of-stock {
+  color: black;
+  padding: 5px;
+  width: fit-content;
+}
+
+.available {
+  background-color: green;
+}
+
+.last-item {
+  background-color: rgb(255, 230, 0);
+}
+
+.out-of-stock {
+  background-color: red;
+}
+
+.quantity-err {
+  color: red;
 }

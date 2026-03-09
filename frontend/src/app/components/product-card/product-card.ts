@@ -9,28 +9,58 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-card',
-  imports: [FormsModule, ProductCardDirective, CardImgDirective, ProductDescSplitterPipe, CurrencyPipe, Mybtn],
+  imports: [
+    FormsModule,
+    ProductCardDirective,
+    CardImgDirective,
+    ProductDescSplitterPipe,
+    CurrencyPipe,
+    Mybtn,
+  ],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
 export class ProductCard {
   @Input() product = {} as IProducts;
   @Output() curPrice = new EventEmitter<number>();
+  quantityErrMsg = '';
 
-  fullDesc:boolean = false;
+  fullDesc: boolean = false;
 
   flipDesc(): void {
     this.fullDesc = !this.fullDesc;
   }
-  
-  buy(inp: any, p: IProducts) {
-    if (inp.value > p.stock || inp.value < 1) {
-      alert('enter valid count');
-      inp.value = '';
-      return;
+
+  validQuantity(quantity: number, stock: number): boolean {
+    if (this.positiveQuantity(quantity) && this.checkStock(quantity, stock)) {
+      this.quantityErrMsg = '';
+      return true;
     }
-    let price = inp.value * p.price;
-    p.stock -= inp.value;
-    this.curPrice.emit(price);
+    return false;
+  }
+
+  positiveQuantity(quantity: number): boolean {
+    if (quantity < 0) {
+      this.quantityErrMsg = 'Invalid quantity';
+      return false;
+    }
+    return true;
+  }
+
+  checkStock(quantity: number, stock: number): boolean {
+    if (quantity > stock) {
+      this.quantityErrMsg = 'Quantity is not available';
+      return false;
+    }
+    return true;
+  }
+
+  buy(inp: any, p: IProducts) {
+    if (this.validQuantity(inp.value, p.stock)) {
+      let price = inp.value * p.price;
+      p.stock -= inp.value;
+      this.curPrice.emit(price);
+      inp.value = '';
+    }
   }
 }
