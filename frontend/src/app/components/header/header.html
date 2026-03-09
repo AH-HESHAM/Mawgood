@@ -35,6 +35,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/signup">Sign Up</a>
         </li>
+        <li>
+          <button class="nav-item" (click)="auth.logout()">Logout</button>
+        </li>
         <button class="nav-item" (click)="toggleTheme()">Toggle Dark Mode</button>
         <button (click)="auth.toggleRole()">
           Switch to {{ auth.isAdmin() ? 'User' : 'Admin' }}

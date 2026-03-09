@@ -4,7 +4,8 @@ function authMiddleware(req, res, next) {
 
   if (
     req.path === "/api/auth/login" ||
-    req.path === "/api/auth/register"
+    req.path === "/api/auth/register" ||
+    req.path === "/api/auth/logout" 
   ) {
     return next();
   }

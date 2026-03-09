@@ -44,3 +44,10 @@ router.get("/", async (req, res) => {
 });
 
 app.use("/api/users", router);
+
+app.get("/api/auth/me", authMiddleware, (req, res) => {
+  res.json({
+    user: req.user
+  });
+});
+

@@ -9,21 +9,28 @@ import { DeleteProduct } from './forms/delete-product/delete-product';
 import { Signup } from './forms/signup-form/signup-form';
 import { adminGuardGuard } from './guards/admin-guard-guard';
 import { Login } from './forms/login/login';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
+
+  /* Pages WITHOUT layout */
+  { path: 'login', component: Login },
+  { path: 'signup', component: Signup },
+
+  /* Pages WITH layout */
   {
     path: '',
     component: Main,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: Home },
-      { path: 'products', component: Body },
-      { path: 'addProduct', component: AddProduct, canActivate: [adminGuardGuard] },
-      { path: 'updataProduct', component: UpdateProduct, canActivate: [adminGuardGuard] },
-      { path: 'deleteProduct', component: DeleteProduct, canActivate: [adminGuardGuard] },
-      { path: 'signup', component: Signup },
-      { path: 'login', component: Login },
-    ],
+      { path: 'home', component: Home, canActivate: [authGuard] },
+      { path: 'products', component: Body, canActivate: [authGuard] },
+      { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'updataProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'deleteProduct', component: DeleteProduct, canActivate: [authGuard, adminGuardGuard] },
+    ]
   },
-  { path: '**', component: Error },
+
+  { path: '**', component: Error }
+
 ];
