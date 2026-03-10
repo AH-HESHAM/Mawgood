@@ -12,6 +12,10 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  isAdmin() {
+    return this.user()?.role === 'admin';
+  }
+
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
