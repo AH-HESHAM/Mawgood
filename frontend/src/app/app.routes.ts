@@ -10,6 +10,7 @@ import { Signup } from './forms/signup-form/signup-form';
 import { adminGuardGuard } from './guards/admin-guard-guard';
 import { Login } from './forms/login/login';
 import { authGuard } from './guards/auth-guard';
+import { AdminPortal } from './components/admin-portal/admin-portal';
 
 export const routes: Routes = [
 
@@ -26,8 +27,9 @@ export const routes: Routes = [
       { path: 'home', component: Home, canActivate: [authGuard] },
       { path: 'products', component: Body, canActivate: [authGuard] },
       { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
-      { path: 'updataProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'updateProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
       { path: 'deleteProduct', component: DeleteProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
     ]
   },
 
