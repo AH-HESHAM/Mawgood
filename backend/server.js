@@ -8,6 +8,7 @@ const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes")
 const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middlewares/authMiddleware");
+const userRoutes = require("./routes/UsersRoutes");
 
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/products", productRoutes);
+app.use("/users", userRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

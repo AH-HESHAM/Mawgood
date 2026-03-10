@@ -1,16 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  getUserId() {
-    return 1234;
-  }
-  isAdmin = signal(false);
+  user = signal<{ email: string; role: string } | null>(null);
   private apiUrl = 'http://localhost:3000/api/auth';
 
   constructor(
@@ -20,9 +17,7 @@ export class AuthService {
   // TODO: change the logic behinf this signal to run true authentication
   isLoggedIn = signal(false);
 
-  toggleRole() {
-    this.isAdmin.update((value) => !value);
-  }
+  isAdmin = computed(()=>this.user()?.role==='admin');
 
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
@@ -44,15 +39,21 @@ export class AuthService {
 
   checkAuth() {
     return this.http.get(`${this.apiUrl}/me`, {
-      withCredentials: true,
-    });
+      withCredentials: true
+    }).pipe(
+      tap({
+        next: (response: any) => {
+          this.user.set({ email: response.email, role: response.role });
+          console.log('User authenticated:', response);
+        },
+      })
+    );
   }
 
   logout() {
     return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         console.log('Logged out successfully');
-        this.isAdmin.set(false);
         this.router.navigate(['/login']);
       },
       error: (error) => {
