@@ -10,7 +10,12 @@ export class AuthService {
   user = signal<{ email: string; role: string } | null>(null);
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
+  // TODO: change the logic behinf this signal to run true authentication
+  isLoggedIn = signal(false);
 
   isAdmin = computed(()=>this.user()?.role==='admin');
 
@@ -18,8 +23,18 @@ export class AuthService {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
 
-  login({ email, password }: { email: string; password: string }): Observable<{ token: string; role: string }> {
-    return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true });
+  login({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Observable<{ token: string; role: string }> {
+    return this.http.post<{ token: string; role: string }>(
+      `${this.apiUrl}/login`,
+      { email, password },
+      { withCredentials: true },
+    );
   }
 
   checkAuth() {
@@ -35,7 +50,7 @@ export class AuthService {
     );
   }
 
-  logout(){
+  logout() {
     return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         console.log('Logged out successfully');
@@ -43,12 +58,12 @@ export class AuthService {
       },
       error: (error) => {
         console.error('Error logging out:', error);
-      }
+      },
     });
   }
 }
 
-interface IUser{
+interface IUser {
   fullName: string;
   email: string;
   password: string;

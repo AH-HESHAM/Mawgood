@@ -6,6 +6,7 @@ import { ProductCardDirective } from '../../directives/product-card-directive';
 import { ProductDescSplitterPipe } from '../../pipes/product-desc-splitter-pipe';
 import { Mybtn } from '../mybtn/mybtn';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-product-card',
@@ -26,6 +27,8 @@ export class ProductCard {
   quantityErrMsg = '';
 
   fullDesc: boolean = false;
+
+  constructor(private cartService: CartService) {}
 
   flipDesc(): void {
     this.fullDesc = !this.fullDesc;
@@ -57,9 +60,10 @@ export class ProductCard {
 
   buy(inp: any, p: IProducts) {
     if (this.validQuantity(inp.value, p.stock)) {
-      let price = inp.value * p.price;
-      p.stock -= inp.value;
+      let price = Number(inp.value) * p.price;
+      p.stock -= Number(inp.value);
       this.curPrice.emit(price);
+      this.cartService.addProduct(p, Number(inp.value));
       inp.value = '';
     }
   }
