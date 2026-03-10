@@ -39,10 +39,12 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart()));
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
-      this.httpclient.put(`${this.baseURL}/cart/${userID}`, {
-        itemId: id,
-        quantity: quantity,
-      });
+      this.httpclient
+        .put(`${this.baseURL}/cart/${userID}`, {
+          itemId: id,
+          quantity: quantity,
+        })
+        .subscribe();
     }
     return;
   }
@@ -56,7 +58,9 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart()));
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
-      this.httpclient.delete(`${this.baseURL}/cart/${userID}/${id}`);
+      this.httpclient
+        .delete(`${this.baseURL}/cart/${userID}`, { body: { itemId: id } })
+        .subscribe();
     }
     return;
   }
@@ -76,7 +80,7 @@ export class CartService {
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
       const newProduct: ICartItem = { ...product, quantity: quantity } as ICartItem;
-      this.httpclient.post(`${this.baseURL}/cart/${userID}`, newProduct);
+      this.httpclient.post(`${this.baseURL}/cart/${userID}`, newProduct).subscribe();
     }
     return;
   }

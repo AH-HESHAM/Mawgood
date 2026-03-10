@@ -17,10 +17,9 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
   ) {}
-  // TODO: change the logic behinf this signal to run true authentication
-  isLoggedIn = signal(false);
 
-  isAdmin = computed(()=>this.user()?.role==='admin');
+  isLoggedIn = computed(() => this.user() !== null);
+  isAdmin = computed(() => this.user()?.role === 'admin');
 
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
@@ -40,17 +39,23 @@ export class AuthService {
     );
   }
 
+  getUserId() {
+    return 1234;
+  }
+
   checkAuth() {
-    return this.http.get(`${this.apiUrl}/me`, {
-      withCredentials: true
-    }).pipe(
-      tap({
-        next: (response: any) => {
-          this.user.set({ email: response.email, role: response.role });
-          console.log('User authenticated:', response);
-        },
+    return this.http
+      .get(`${this.apiUrl}/me`, {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap({
+          next: (response: any) => {
+            this.user.set({ email: response.email, role: response.role });
+            console.log('User authenticated:', response);
+          },
+        }),
+      );
   }
 
   logout() {
