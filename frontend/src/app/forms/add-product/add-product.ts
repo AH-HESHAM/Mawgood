@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StaticData } from '../../services/static-data';
 import { Router } from '@angular/router';
 import { IProducts } from '../../models/iproducts';
 import { DynamicData } from '../../services/dynamic-data';

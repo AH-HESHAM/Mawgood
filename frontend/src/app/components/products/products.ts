@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProducts } from '../../models/iproducts';
 import { FormsModule } from '@angular/forms';
-import { StaticData } from '../../services/static-data';
 import { ProductCard } from '../product-card/product-card';
 import { DynamicData } from '../../services/dynamic-data';
 import { Observable } from 'rxjs';
@@ -25,6 +24,7 @@ export class Products {
   @Input() searchByText: string = '';
   @Input() minPrice: number = 0;
   @Input() maxPrice: number = Number.MAX_VALUE;
+  @Input() onlyMe: boolean = false;
 
   @Output() total = new EventEmitter<number>();
 
@@ -32,11 +32,10 @@ export class Products {
   // constructor(private dataService: StaticData) {}
 
   ngOnInit(): void {
-    this.initializeData();
+    this.filterProducts();
   }
 
   private initializeData(): void {
-    this.dataService.loadProducts();
     this.filterProducts();
   }
 
@@ -50,6 +49,7 @@ export class Products {
       this.searchByText,
       this.minPrice,
       this.maxPrice,
+      this.onlyMe,
     );
   }
 
