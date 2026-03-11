@@ -17,12 +17,16 @@ export class AuthService {
   // TODO: change the logic behinf this signal to run true authentication
   isLoggedIn = signal(false);
 
-  isAdmin = computed(()=>this.user()?.role==='admin');
+  isAdmin = computed(() => this.user()?.role === 'admin');
 
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
 
+  getUserId() {
+    return 1234;
+  }
+  
   login({
     email,
     password,
@@ -38,16 +42,18 @@ export class AuthService {
   }
 
   checkAuth() {
-    return this.http.get(`${this.apiUrl}/me`, {
-      withCredentials: true
-    }).pipe(
-      tap({
-        next: (response: any) => {
-          this.user.set({ email: response.email, role: response.role });
-          console.log('User authenticated:', response);
-        },
+    return this.http
+      .get(`${this.apiUrl}/me`, {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap({
+          next: (response: any) => {
+            this.user.set({ email: response.email, role: response.role });
+            console.log('User authenticated:', response);
+          },
+        }),
+      );
   }
 
   logout() {
