@@ -52,11 +52,15 @@ async function updateCart(userId, itemId, quantity) {
 
 async function getUserCart(userId) {
   try {
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(userId).populate("cart.itemId");
     if (!user) {
       throw new Error("User not found");
     }
-    return user.cart;
+    return user.cart.map((item) => ({
+      ...item.itemId._doc,
+      id: item.itemId._id,
+      quantity: item.quantity,
+    }));
   } catch (error) {
     throw error;
   }

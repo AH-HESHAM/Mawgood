@@ -19,9 +19,11 @@ export class CartService {
       this.cart.set(JSON.parse(localCart));
     } else if (authservice.isLoggedIn()) {
       httpclient
-        .get<{ items: ICartItem[] }>(`${this.baseURL}/cart/${this.authservice.getUserId()}`)
+        .get<
+          ICartItem[]
+        >(`${this.baseURL}/cart/${this.authservice.getUserId()}`, { withCredentials: true })
         .subscribe((res) => {
-          this.cart.set(res.items);
+          this.cart.set(res);
         });
     }
   }
@@ -36,14 +38,22 @@ export class CartService {
       }
     }
     this.cart.set(currCart);
-    localStorage.setItem('cart', JSON.stringify(this.cart()));
+    if (this.cart().length > 0) {
+      localStorage.setItem('cart', JSON.stringify(this.cart()));
+    } else {
+      localStorage.removeItem('cart');
+    }
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
       this.httpclient
-        .put(`${this.baseURL}/cart/${userID}`, {
-          itemId: id,
-          quantity: quantity,
-        })
+        .put(
+          `${this.baseURL}/cart/${userID}`,
+          {
+            itemId: id,
+            quantity: quantity,
+          },
+          { withCredentials: true },
+        )
         .subscribe();
     }
     return;
@@ -55,11 +65,16 @@ export class CartService {
       currCart.splice(selectedItem, 1);
     }
     this.cart.set(currCart);
+    if (this.cart().length > 0) {
+      localStorage.setItem('cart', JSON.stringify(this.cart()));
+    } else {
+      localStorage.removeItem('cart');
+    }
     localStorage.setItem('cart', JSON.stringify(this.cart()));
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
       this.httpclient
-        .delete(`${this.baseURL}/cart/${userID}`, { body: { itemId: id } })
+        .delete(`${this.baseURL}/cart/${userID}`, { body: { itemId: id }, withCredentials: true })
         .subscribe();
     }
     return;
@@ -80,7 +95,9 @@ export class CartService {
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
       const newProduct: ICartItem = { ...product, quantity: quantity } as ICartItem;
-      this.httpclient.post(`${this.baseURL}/cart/${userID}`, newProduct).subscribe();
+      this.httpclient
+        .post(`${this.baseURL}/cart/${userID}`, newProduct, { withCredentials: true })
+        .subscribe();
     }
     return;
   }
