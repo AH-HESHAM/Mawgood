@@ -23,23 +23,30 @@
 
     <h6 class="card-title">{{ product.price | currency }}</h6>
 
-    <div class="buy">
-      <app-mybtn
-        text="Buy"
-        (clicked)="buy(inp, product)"
-        [btnColor]="!validQuantity(+inp.value, product.stock) ? 'gray' : ''"
-      >
-      </app-mybtn>
-      <input
-        [disabled]="product.stock == 0"
-        class="quantityOrder"
-        [placeholder]="product.stock <= 0 ? 'Not available' : 'Order quantity'"
-        #inp
-        type="number"
-        min="1"
-        (input)="validQuantity(+inp.value, product.stock)"
-      />
-    </div>
-    <div class="quantity-err">{{ quantityErrMsg }}</div>
+    @if (getUserRole() === 'customer') {
+      <div class="buy">
+        <app-mybtn
+          text="Buy"
+          (clicked)="buy(inp, product)"
+          [btnColor]="!validQuantity(+inp.value, product.stock) ? 'gray' : ''"
+        >
+        </app-mybtn>
+        <input
+          [disabled]="product.stock == 0"
+          class="quantityOrder"
+          [placeholder]="product.stock <= 0 ? 'Not available' : 'Order quantity'"
+          #inp
+          type="number"
+          min="1"
+          (input)="validQuantity(+inp.value, product.stock)"
+        />
+        <div class="quantity-err">{{ quantityErrMsg }}</div>
+      </div>
+    } @else {
+      <div class="manage">
+        <app-mybtn text="Edit"> </app-mybtn>
+        <app-mybtn text="Delete" btnColor="red"> </app-mybtn>
+      </div>
+    }
   </div>
 </div>

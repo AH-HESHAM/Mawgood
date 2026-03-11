@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, map, Observable, tap } from 'rxjs';
 import { IProducts } from '../models/iproducts';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,16 @@ export class DynamicData {
 
   private apiUrl = 'http://localhost:3000/products';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+  ) {}
 
   // Load once at app start
   loadProducts() {
-    this.http.get<IProducts[]>(this.apiUrl).subscribe((data) => this.productsSubject.next(data));
+    this.http
+      .get<IProducts[]>(this.apiUrl, { withCredentials: true })
+      .subscribe((data) => this.productsSubject.next(data));
   }
 
   filterProducts(
@@ -24,10 +30,18 @@ export class DynamicData {
     text: string = '',
     minPrice: number = 0,
     maxPrice: number = Number.MAX_VALUE,
+    onlyMe: boolean = false,
   ): Observable<IProducts[]> {
+    this.loadProducts();
     return this.products$.pipe(
       map((products) => {
         let filteredList = products;
+
+        if (onlyMe) {
+          filteredList = filteredList.filter(
+            (product) => product.vendorMail === this.auth.user()?.email,
+          );
+        }
 
         // Category
         if (category !== 'all') {
@@ -56,8 +70,8 @@ export class DynamicData {
 
   // ADD
   post(product: IProducts): Observable<IProducts> {
-    product.id = product.id
-    return this.http.post<IProducts>(this.apiUrl, product).pipe(
+    product.id = product.id;
+    return this.http.post<IProducts>(this.apiUrl, product, { withCredentials: true }).pipe(
       tap((newProduct) => {
         const current = this.productsSubject.value;
         this.productsSubject.next([...current, newProduct]);
@@ -67,7 +81,7 @@ export class DynamicData {
 
   // DELETE
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true }).pipe(
       tap(() => {
         const updated = this.productsSubject.value.filter((p) => p.id !== id);
         this.productsSubject.next(updated);
@@ -77,25 +91,29 @@ export class DynamicData {
 
   // PATCH
   update(changes: Partial<IProducts>): Observable<IProducts> {
-    return this.http.patch<IProducts>(`${this.apiUrl}/${changes.id}`, changes).pipe(
-      tap((updatedProduct) => {
-        const updated = this.productsSubject.value.map((p) =>
-          p.id == changes.id ? updatedProduct : p,
-        );
-        this.productsSubject.next(updated);
-      }),
-    );
+    return this.http
+      .patch<IProducts>(`${this.apiUrl}/${changes.id}`, changes, { withCredentials: true })
+      .pipe(
+        tap((updatedProduct) => {
+          const updated = this.productsSubject.value.map((p) =>
+            p.id == changes.id ? updatedProduct : p,
+          );
+          this.productsSubject.next(updated);
+        }),
+      );
   }
 
   // PUT
   put(product: IProducts): Observable<IProducts> {
-    return this.http.put<IProducts>(`${this.apiUrl}/${product.id}`, product).pipe(
-      tap((updatedProduct) => {
-        const updated = this.productsSubject.value.map((p) =>
-          p.id === product.id ? updatedProduct : p,
-        );
-        this.productsSubject.next(updated);
-      }),
-    );
+    return this.http
+      .put<IProducts>(`${this.apiUrl}/${product.id}`, product, { withCredentials: true })
+      .pipe(
+        tap((updatedProduct) => {
+          const updated = this.productsSubject.value.map((p) =>
+            p.id === product.id ? updatedProduct : p,
+          );
+          this.productsSubject.next(updated);
+        }),
+      );
   }
 }

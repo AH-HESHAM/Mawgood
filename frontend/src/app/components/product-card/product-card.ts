@@ -7,6 +7,7 @@ import { ProductDescSplitterPipe } from '../../pipes/product-desc-splitter-pipe'
 import { Mybtn } from '../mybtn/mybtn';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-product-card',
@@ -28,7 +29,7 @@ export class ProductCard {
 
   fullDesc: boolean = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, public auth: AuthService) {}
 
   flipDesc(): void {
     this.fullDesc = !this.fullDesc;
@@ -66,5 +67,9 @@ export class ProductCard {
       this.cartService.addProduct(p, Number(inp.value));
       inp.value = '';
     }
+  }
+
+  getUserRole(){
+    return this.auth.user()?.role;
   }
 }

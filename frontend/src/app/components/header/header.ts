@@ -20,4 +20,8 @@ export class Header {
   toggleTheme() {
     this.isDark.update((v) => !v);
   }
+
+  getUserRole(){
+    return this.auth.user()?.role;
+  }
 }

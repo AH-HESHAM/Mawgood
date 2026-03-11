@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Products } from '../products/products';
 import { Filters } from '../filters/filters';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-body',
@@ -14,7 +15,7 @@ export class Body {
   minPrice: number;
   maxPrice: number;
   TotalPrice: number;
-  constructor() {
+  constructor(private auth : AuthService) {
     this.chosenCategory = 'all';
     this.searchText = '';
     this.minPrice = 0;
@@ -37,5 +38,9 @@ export class Body {
 
   receiveMaxPrice(maxPrice: number) {
     this.maxPrice = maxPrice;
+  }
+
+  getUserRole(){
+    return this.auth.user()?.role;
   }
 }

@@ -12,6 +12,11 @@
   justify-content: space-between;
 }
 
+.manage{
+  display: flex;
+  justify-content: space-around;
+}
+
 .available,
 .last-item,
 .out-of-stock {

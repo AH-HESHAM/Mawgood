@@ -1,6 +1,9 @@
 <div class="container">
   <div class="products_header">
-    <h1>Total Price : {{ TotalPrice }}</h1>
+    @if (getUserRole() != 'seller') {
+      <h1>Total Price : {{ TotalPrice }}</h1>
+    }
+
     <app-filters
       (categoryEvent)="receiveCategory($event)"
       (textEvent)="receiveSearchText($event)"
@@ -17,6 +20,7 @@
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"
       (total)="receivedPrice($event)"
+      [onlyMe]="getUserRole() === 'seller'"
     ></app-products>
   </div>
 </div>
