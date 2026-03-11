@@ -13,6 +13,7 @@ import { authGuard } from './guards/auth-guard';
 import { CartPage } from './components/cart/cart-page/cart-page';
 import { CheckoutDispatcher } from './components/checkout/checkout-dispatcher/checkout-dispatcher';
 import { AdminPortal } from './components/admin-portal/admin-portal';
+import { EditProduct } from './components/edit-product/edit-product';
 
 export const routes: Routes = [
   /* Pages WITHOUT layout */
@@ -30,8 +31,7 @@ export const routes: Routes = [
       { path: 'products', component: Body, canActivate: [authGuard] },
       { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
 
-      { path: 'updateProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
-      { path: 'deleteProduct', component: DeleteProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'edit-product/:id', component: EditProduct, canActivate: [authGuard] },
       { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
       { path: 'cart', component: CartPage },
       {

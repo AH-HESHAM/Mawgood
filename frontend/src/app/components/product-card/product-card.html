@@ -1,11 +1,17 @@
 <div class="card" style="width: 18rem" appProductCardDirective>
-  <h5
+  <div
     [class.available]="product.stock > 1"
     [class.last-item]="product.stock == 1"
     [class.out-of-stock]="product.stock <= 0"
   >
-    {{ product.stock > 1 ? 'Available' : product.stock > 0 ? 'Last Item' : 'Out of stock' }}
-  </h5>
+    <h5>
+      {{ product.stock > 1 ? 'Available' : product.stock > 0 ? 'Last Item' : 'Out of stock' }}
+    </h5>
+    @if (getUserRole() === 'seller' && product.stock > 1) {
+      <h5>: {{ product.stock }} items</h5>
+    }
+  </div>
+
   <img
     [src]="product.images ? product.images[0] : null"
     class="card-img-top"

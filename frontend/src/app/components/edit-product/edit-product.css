@@ -1,0 +1,21 @@
+.editForm {
+  padding: 20px;
+}
+
+.actions{
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: red;
+}

@@ -27,6 +27,34 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    console.log("ubdating")
+    const { id } = req.params;
+    const changes = req.body;
+
+    // remove _id from changes to prevent overwriting it
+    delete changes._id;
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { $set: changes },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(400)
+      .json({ error: "Failed to update product. Check your data." });
+  }
+});
+
 // !!!!!!!!!!!!!!!! not tested yet !!!!!!!!!!!!!!!!!!
 router.post("/", async (req, res) => {
   try {

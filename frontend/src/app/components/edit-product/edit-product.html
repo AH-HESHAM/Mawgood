@@ -1,0 +1,78 @@
+<div class="editForm">
+  <h2>Edit Product</h2>
+
+  <form #editForm="ngForm">
+    <label>Title</label>
+    <input
+      type="text"
+      [(ngModel)]="product.title"
+      name="title"
+      required
+      minlength="2"
+      #title="ngModel"
+    />
+    <span class="error" *ngIf="title.invalid && title.touched">
+      Title is required (min 2 characters)
+    </span>
+
+    <label>Price</label>
+    <input
+      type="number"
+      [(ngModel)]="product.price"
+      name="price"
+      required
+      min="0.01"
+      #price="ngModel"
+    />
+    <span class="error" *ngIf="price.invalid && price.touched">
+      Price is required and must be positive
+    </span>
+
+    <label>Category</label>
+    <input
+      type="text"
+      [(ngModel)]="product.category"
+      name="category"
+      required
+      #category="ngModel"
+    />
+    <span class="error" *ngIf="category.invalid && category.touched"> Category is required </span>
+
+    <label>Description</label>
+    <textarea
+      [(ngModel)]="product.description"
+      name="description"
+      required
+      minlength="10"
+      #description="ngModel"
+    ></textarea>
+    <span class="error" *ngIf="description.invalid && description.touched">
+      Description is required (min 10 characters)
+    </span>
+
+    <label>Stock</label>
+    <input
+      type="number"
+      [(ngModel)]="product.stock"
+      name="stock"
+      required
+      min="0"
+      #stock="ngModel"
+    />
+    <span class="error" *ngIf="stock.invalid && stock.touched">
+      Stock is required and must be 0 or more
+    </span>
+
+    <label>Image URL</label>
+    <input type="text" [(ngModel)]="product.images" name="images" required #images="ngModel" />
+    <span class="error" *ngIf="images.invalid && images.touched"> Image URL is required </span>
+  </form>
+  <div class="actions">
+    <app-mybtn
+      text="Save"
+      [btnColor]="editForm.invalid?'gray' :''"
+      (click)="!editForm.invalid ? submit() : {}"
+    ></app-mybtn>
+    <app-mybtn btnColor="red" text="Cancel" (click)="cancel()"></app-mybtn>
+  </div>
+</div>

@@ -20,6 +20,8 @@
 .available,
 .last-item,
 .out-of-stock {
+  display: flex;
+  justify-content: space-around;
   color: black;
   padding: 5px;
   width: fit-content;
