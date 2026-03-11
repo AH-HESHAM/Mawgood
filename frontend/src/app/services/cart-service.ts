@@ -80,4 +80,18 @@ export class CartService {
     }
     return;
   }
+  getStripeItemList = () => {
+    return this.cart().map(item => {
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.title
+          },
+          unit_amount: item.price
+        },
+        quantity: item.quantity
+      }
+    });
+  }
 }
