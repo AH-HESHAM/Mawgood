@@ -9,8 +9,17 @@ async function signup(req, res) {
     if (existingUser) {
       return res.status(400).json({ error: "Email already exists" });
     }
-    const hashedPassword = await bcrypt.hash(password, parseInt(process.env.HASH_SALT_ROUNDS));
-    const newUser = new User({ fullName, email, password: hashedPassword, role, phoneNumber });
+    const hashedPassword = await bcrypt.hash(
+      password,
+      parseInt(process.env.HASH_SALT_ROUNDS),
+    );
+    const newUser = new User({
+      fullName,
+      email,
+      password: hashedPassword,
+      role,
+      phoneNumber,
+    });
     await newUser.save();
     res.json({ message: "User registered successfully" });
   } catch (error) {
@@ -28,9 +37,9 @@ async function login(req, res) {
     }
 
     const token = jwt.sign(
-      { email: email, role: user.role },
+      { email: email, role: user.role, id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     // Send token in cookie
@@ -38,10 +47,10 @@ async function login(req, res) {
       httpOnly: true,
       secure: false,
       sameSite: "Strict",
-      maxAge: 3600000
+      maxAge: 3600000,
     });
 
-    res.json({ message: "Login successful"});
+    res.json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
