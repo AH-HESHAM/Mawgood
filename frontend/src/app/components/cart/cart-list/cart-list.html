@@ -11,21 +11,21 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of cartProducts(); track item.id) {
+      @for (item of cartProducts(); track item._id) {
         <tr>
           <td><img [src]="item.images[0]" alt="{{ item.title }}" width="80" height="80" /></td>
           <td class="product-title">{{ item.title }}</td>
           <td class="price">{{ item.price | number: '1.2-2' }} $</td>
           <td>
             <div class="controls-container">
-              <button (click)="decreamentQuantity(item.id)">-</button>
+              <button (click)="decreamentQuantity(item._id)">-</button>
               <span class="quantity-display">{{ item.quantity }}</span>
-              <button (click)="increamentQuantity(item.id)">+</button>
+              <button (click)="increamentQuantity(item._id)">+</button>
             </div>
           </td>
           <td class="total">{{ item.quantity * item.price | number: '1.2-2' }} $</td>
           <td>
-            <button class="remove-item-btn" (click)="removeProduct(item.id)">Remove</button>
+            <button class="remove-item-btn" (click)="removeProduct(item._id)">Remove</button>
           </td>
         </tr>
       }
