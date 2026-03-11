@@ -101,18 +101,4 @@ export class DynamicData {
         }),
       );
   }
-
-  // PUT
-  put(product: IProducts): Observable<IProducts> {
-    return this.http
-      .put<IProducts>(`${this.apiUrl}/${product._id}`, product, { withCredentials: true })
-      .pipe(
-        tap((updatedProduct) => {
-          const updated = this.productsSubject.value.map((p) =>
-            p._id === product._id ? updatedProduct : p,
-          );
-          this.productsSubject.next(updated);
-        }),
-      );
-  }
 }

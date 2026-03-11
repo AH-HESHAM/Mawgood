@@ -29,7 +29,6 @@ router.delete("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    console.log("ubdating")
     const { id } = req.params;
     const changes = req.body;
 
