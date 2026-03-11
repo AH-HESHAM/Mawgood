@@ -11,8 +11,10 @@ import { adminGuardGuard } from './guards/admin-guard-guard';
 import { Login } from './forms/login/login';
 import { authGuard } from './guards/auth-guard';
 import { CartPage } from './components/cart/cart-page/cart-page';
-import { CheckoutDispatcher } from './components/checkout/checkout-dispatcher/checkout-dispatcher';
 import { AdminPortal } from './components/admin-portal/admin-portal';
+import { Payment } from './services/payment';
+import { PaymentSuccess } from './components/payment-success/payment-success';
+import { PaymentCancel } from './components/payment-cancel/payment-cancel';
 
 export const routes: Routes = [
   /* Pages WITHOUT layout */
@@ -34,10 +36,8 @@ export const routes: Routes = [
       { path: 'deleteProduct', component: DeleteProduct, canActivate: [authGuard, adminGuardGuard] },
       { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
       { path: 'cart', component: CartPage },
-      {
-        path: 'checkout',
-        component: CheckoutDispatcher,
-      },
+      { path: 'payment-success', component: PaymentSuccess },
+      { path: 'payment-cancel', component: PaymentCancel }
     ]
   },
 

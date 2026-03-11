@@ -8,6 +8,7 @@ import { DecimalPipe } from '@angular/common';
 import { CouponService } from '../../../services/coupon-service';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { Payment } from '../../../services/payment';
 
 @Component({
   selector: 'app-cart-page',
@@ -24,6 +25,7 @@ export class CartPage {
     private authService: AuthService,
     private couponService: CouponService,
     private router: Router,
+    private paymentService: Payment
   ) {
     this.cartProducts = this.cartService.cart;
   }
@@ -57,7 +59,18 @@ export class CartPage {
     return this.getSubtotal() + this.shippingCost - this.getTotalDiscount();
   }
 
-  checkout() {
-    this.router.navigate(['/checkout']);
+  checkout(){
+    let itemList = this.cartService.getStripeItemList();
+
+    if(itemList.length === 0){
+      alert("Your cart is empty!");
+      return;
+    }
+    
+    this.paymentService
+        .createPayment(itemList)
+        .subscribe((res:any) => {
+          window.location.href = res.url;
+        });
   }
 }
