@@ -6,4 +6,5 @@ export interface IProducts {
   category: string;
   description: string;
   stock:number;
+  vendorMail:string;
 }
