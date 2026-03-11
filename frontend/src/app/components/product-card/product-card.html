@@ -44,8 +44,8 @@
       </div>
     } @else {
       <div class="manage">
-        <app-mybtn text="Edit"> </app-mybtn>
-        <app-mybtn text="Delete" btnColor="red"> </app-mybtn>
+        <app-mybtn text="Edit" (click)="edit(product)"> </app-mybtn>
+        <app-mybtn text="Delete" btnColor="red" (click)="delete(product)"> </app-mybtn>
       </div>
     }
   </div>

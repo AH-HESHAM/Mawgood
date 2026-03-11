@@ -8,6 +8,7 @@ import { Mybtn } from '../mybtn/mybtn';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
 import { AuthService } from '../../services/auth-service';
+import { DynamicData } from '../../services/dynamic-data';
 
 @Component({
   selector: 'app-product-card',
@@ -29,7 +30,7 @@ export class ProductCard {
 
   fullDesc: boolean = false;
 
-  constructor(private cartService: CartService, public auth: AuthService) {}
+  constructor(private cartService: CartService, private auth: AuthService, private dataService: DynamicData) {}
 
   flipDesc(): void {
     this.fullDesc = !this.fullDesc;
@@ -71,5 +72,16 @@ export class ProductCard {
 
   getUserRole(){
     return this.auth.user()?.role;
+  }
+
+  edit(product: IProducts){
+    // 
+  }
+
+  delete(product: IProducts){
+    if(confirm("Are you sure you want to delete this product")){
+      console.log("product cards delete")
+      this.dataService.delete(product._id).subscribe()
+    }
   }
 }
