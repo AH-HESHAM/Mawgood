@@ -12,7 +12,7 @@ router.post("/create-checkout-session", async (req, res) => {
         payment_method_types: ["card"],
         line_items: req.body.line_items,
         mode: "payment",
-
+        allow_promotion_codes: true,
         success_url: "http://localhost:4200/payment-success",
         cancel_url: "http://localhost:4200/payment-cancel"
       });
