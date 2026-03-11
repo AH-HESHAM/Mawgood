@@ -27,7 +27,7 @@ export const routes: Routes = [
       // exposed home and products to allow for guest checkout
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
-      { path: 'products', component: Body },
+      { path: 'products', component: Body, canActivate: [authGuard] },
       { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
 
       { path: 'updateProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
