@@ -22,6 +22,10 @@ export class AuthService {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
 
+  getUserId() {
+    return 1234;
+  }
+  
   login({
     email,
     password,

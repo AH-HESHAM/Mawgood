@@ -12,9 +12,22 @@
   justify-content: space-between;
 }
 
+.manage {
+  display: flex;
+  justify-content: space-around;
+}
+
+img {
+  width: 80%;
+  margin: 5px auto;
+  height: 80%;
+}
+
 .available,
 .last-item,
 .out-of-stock {
+  display: flex;
+  justify-content: space-around;
   color: black;
   padding: 5px;
   width: fit-content;

@@ -16,11 +16,11 @@ export class CartList {
     this.cartProducts = this.cartService.cart;
   }
   increamentQuantity(id: number) {
-    const product = this.cartProducts().find((item) => item.id === id);
+    const product = this.cartProducts().find((item) => item._id === id);
     this.cartService.updateQuantity(id, product!.quantity + 1);
   }
   decreamentQuantity(id: number) {
-    const product = this.cartProducts().find((item) => item.id === id);
+    const product = this.cartProducts().find((item) => item._id === id);
     this.cartService.updateQuantity(id, product!.quantity - 1);
   }
   removeProduct(id: number) {

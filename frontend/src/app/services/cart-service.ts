@@ -29,7 +29,7 @@ export class CartService {
   }
   updateQuantity(id: number, quantity: number) {
     let currCart = [...this.cart()];
-    let selectedItem = currCart.findIndex((item: ICartItem) => item.id === id);
+    let selectedItem = currCart.findIndex((item: ICartItem) => item._id === id);
     if (selectedItem !== -1) {
       if (quantity == 0) {
         currCart.splice(selectedItem, 1);
@@ -60,7 +60,7 @@ export class CartService {
   }
   removeProduct(id: number) {
     let currCart = [...this.cart()];
-    let selectedItem = currCart.findIndex((item: ICartItem) => item.id === id);
+    let selectedItem = currCart.findIndex((item: ICartItem) => item._id === id);
     if (selectedItem !== -1) {
       currCart.splice(selectedItem, 1);
     }
@@ -82,7 +82,7 @@ export class CartService {
 
   addProduct(product: IProducts, quantity: number) {
     let currCart = [...this.cart()];
-    let selectedItem = currCart.findIndex((item: ICartItem) => item.id === product.id);
+    let selectedItem = currCart.findIndex((item: ICartItem) => item._id === product._id);
     if (selectedItem !== -1) {
       currCart[selectedItem].quantity += quantity;
     } else {
