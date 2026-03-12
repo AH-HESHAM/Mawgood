@@ -1,0 +1,106 @@
+<div class="editForm card">
+  <h2>Add Product</h2>
+
+  <form #editForm="ngForm">
+    <label>Title</label>
+    <input
+      type="text"
+      [(ngModel)]="product.title"
+      name="title"
+      required
+      minlength="2"
+      #title="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="title.invalid && title.touched">
+      Title is required (min 2 characters)
+    </span>
+
+    <label>Price</label>
+    <input
+      type="number"
+      [(ngModel)]="product.price"
+      name="price"
+      required
+      min="0.01"
+      #price="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="price.invalid && price.touched">
+      Price is required and must be positive
+    </span>
+
+    <label>Category</label>
+    <input
+      type="text"
+      [(ngModel)]="product.category"
+      name="category"
+      required
+      #category="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="category.invalid && category.touched">
+      Category is required
+    </span>
+
+    <label>Description</label>
+    <textarea
+      [(ngModel)]="product.description"
+      name="description"
+      required
+      minlength="10"
+      #description="ngModel"
+      class="form-control"
+      rows="3"
+    ></textarea>
+    <span class="error" *ngIf="description.invalid && description.touched">
+      Description is required (min 10 characters)
+    </span>
+
+    <label>Stock</label>
+    <input
+      type="number"
+      [(ngModel)]="product.stock"
+      name="stock"
+      required
+      min="0"
+      #stock="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="stock.invalid && stock.touched">
+      Stock is required and must be 0 or more
+    </span>
+
+    <label>Image URL</label>
+    <input
+      type="text"
+      [(ngModel)]="product.images"
+      name="images"
+      required
+      #images="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="images.invalid && images.touched">
+      Image URL is required
+    </span>
+  </form>
+
+  <div class="actions">
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="editForm.invalid"
+      (click)="submit()"
+    >
+      Save
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

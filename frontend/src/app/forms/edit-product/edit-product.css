@@ -1,0 +1,108 @@
+/* Card Container */
+.editForm {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 24px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Form Labels */
+.editForm label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #212529;
+}
+
+/* Inputs and Textarea */
+.editForm input,
+.editForm textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.editForm input:focus,
+.editForm textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+/* Error Messages */
+.error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+/* Actions Buttons */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Custom buttons */
+.actions app-mybtn {
+  flex: 1;
+}
+
+.actions app-mybtn[btnColor="red"] {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.actions app-mybtn[btnColor="red"]:hover {
+  background-color: #b02a37;
+}
+
+.actions app-mybtn:not([btnColor="red"]) {
+  background-color: #212529;
+  color: white;
+  border: none;
+}
+
+.actions app-mybtn:not([btnColor="red"]):hover {
+  background-color: #000;
+}
+
+/* Heading */
+.editForm h2 {
+  text-align: center;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .editForm {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions app-mybtn {
+    width: 100%;
+  }
+}

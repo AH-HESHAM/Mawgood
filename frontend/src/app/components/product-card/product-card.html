@@ -1,0 +1,58 @@
+<div class="card" style="width: 18rem" appProductCardDirective>
+  <div
+    [class.available]="product.stock > 1"
+    [class.last-item]="product.stock == 1"
+    [class.out-of-stock]="product.stock <= 0"
+  >
+    <h5>
+      {{ product.stock > 1 ? 'Available' : product.stock > 0 ? 'Last Item' : 'Out of stock' }}
+    </h5>
+    @if (getUserRole() === 'seller' && product.stock > 1) {
+      <h5>: {{ product.stock }} items</h5>
+    }
+  </div>
+
+  <img
+    [src]="product.images"
+    class="card-img-top"
+    alt="not exist"
+    appCardImgDirective
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text">
+      {{ fullDesc ? product.description : (product.description | productDescSplitter) }}
+      <button class="descExpand" (click)="flipDesc()">
+        {{ !fullDesc ? '...' : '<' }}
+      </button>
+    </p>
+
+    <h6 class="card-title">{{ product.price | currency }}</h6>
+
+    @if (getUserRole() === 'customer') {
+      <div class="buy">
+        <app-mybtn
+          text="Buy"
+          (clicked)="buy(inp, product)"
+          [btnColor]="!validQuantity(+inp.value, product.stock) || product.stock == 0 ? 'gray' : ''"
+        >
+        </app-mybtn>
+        <input
+          [disabled]="product.stock == 0"
+          class="quantityOrder"
+          [placeholder]="product.stock <= 0 ? 'Not available' : 'Order quantity'"
+          #inp
+          type="number"
+          min="1"
+          (input)="validQuantity(+inp.value, product.stock)"
+        />
+        <div class="quantity-err">{{ quantityErrMsg }}</div>
+      </div>
+    } @else {
+      <div class="manage">
+        <app-mybtn text="Edit" (click)="edit(product)"> </app-mybtn>
+        <app-mybtn text="Delete" btnColor="red" (click)="delete(product)"> </app-mybtn>
+      </div>
+    }
+  </div>
+</div>

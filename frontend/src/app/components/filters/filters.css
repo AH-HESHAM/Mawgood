@@ -1,0 +1,21 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* make individual controls flexible so they can't blow out the header */
+.filters select,
+.filters input {
+  flex: 1 1 120px;
+  max-width: 200px;
+  position: relative;
+  z-index: 1100; /* float above sticky header when dropdowns open */
+}
+
+.price-error {
+  color: red;
+  white-space: nowrap;
+}

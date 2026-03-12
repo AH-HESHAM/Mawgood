@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="products_header">
+    @if (getUserRole() != 'seller') {
+      <h1>Total Price : {{ TotalPrice }}</h1>
+    }
+    @else {
+      <app-mybtn class="btn" text="New Product" (click)="add()"></app-mybtn>
+    }
+
+    <app-filters
+      (categoryEvent)="receiveCategory($event)"
+      (textEvent)="receiveSearchText($event)"
+      (minPriceEvent)="receiveMinPrice($event)"
+      (maxPriceEvent)="receiveMaxPrice($event)"
+    >
+    </app-filters>
+  </div>
+
+  <div class="products">
+    <app-products
+      [chosenCategoryFilter]="chosenCategory"
+      [searchByText]="searchText"
+      [minPrice]="minPrice"
+      [maxPrice]="maxPrice"
+      (total)="receivedPrice($event)"
+      [onlyMe]="getUserRole() === 'seller'"
+    ></app-products>
+  </div>
+</div>
