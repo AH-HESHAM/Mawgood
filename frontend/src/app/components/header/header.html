@@ -22,7 +22,7 @@
             getUserRole() === 'customer' ? 'Products' : 'My Products'
           }}</a>
         </li>
-        @if (auth.isLoggedIn()) {
+        @if (!auth.isLoggedIn()) {
           <li class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>
           </li>
