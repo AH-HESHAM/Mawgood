@@ -107,10 +107,9 @@ export class CartService {
         price_data: {
           currency: 'usd',
           product_data: {
-            id: item._id,
             name: item.title,
           },
-          unit_amount: item.price,
+          unit_amount: item.price * 100,
         },
         quantity: item.quantity,
       };
