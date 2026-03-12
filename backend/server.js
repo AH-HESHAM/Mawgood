@@ -30,9 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/products", productRoutes);
-app.use("/api/auth", authRoutes);
-
 app.use(authMiddleware);
+
+app.use("/api/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/payment", stripeRoutes);
 app.use("/cart", cartRoutes);
