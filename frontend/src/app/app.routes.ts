@@ -15,6 +15,7 @@ import { AdminPortal } from './components/admin-portal/admin-portal';
 import { Payment } from './services/payment';
 import { PaymentSuccess } from './components/payment-success/payment-success';
 import { PaymentCancel } from './components/payment-cancel/payment-cancel';
+import { UserCheckoutPage } from './components/checkout/user-checkout-page';
 
 export const routes: Routes = [
   /* Pages WITHOUT layout */
@@ -32,13 +33,22 @@ export const routes: Routes = [
       { path: 'products', component: Body },
       { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
 
-      { path: 'updateProduct', component: UpdateProduct, canActivate: [authGuard, adminGuardGuard] },
-      { path: 'deleteProduct', component: DeleteProduct, canActivate: [authGuard, adminGuardGuard] },
+      {
+        path: 'updateProduct',
+        component: UpdateProduct,
+        canActivate: [authGuard, adminGuardGuard],
+      },
+      {
+        path: 'deleteProduct',
+        component: DeleteProduct,
+        canActivate: [authGuard, adminGuardGuard],
+      },
       { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
       { path: 'cart', component: CartPage },
       { path: 'payment-success', component: PaymentSuccess },
-      { path: 'payment-cancel', component: PaymentCancel }
-    ]
+      { path: 'payment-cancel', component: PaymentCancel },
+      { path: 'checkout', component: UserCheckoutPage },
+    ],
   },
 
   { path: '**', component: Error },

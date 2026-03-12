@@ -7,10 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  getUserId() {
-    return "123";
-  }
-  user = signal<{ email: string; role: string } | null>(null);
+  user = signal<{ email: string; role: string; id: string } | null>(null);
   private apiUrl = 'http://localhost:3000/api/auth';
 
   constructor(
@@ -40,7 +37,7 @@ export class AuthService {
   }
 
   getUserId() {
-    return 1234;
+    return this.user()?.id;
   }
 
   checkAuth() {

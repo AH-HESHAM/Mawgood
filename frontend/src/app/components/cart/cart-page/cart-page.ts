@@ -25,7 +25,7 @@ export class CartPage {
     private authService: AuthService,
     private couponService: CouponService,
     private router: Router,
-    private paymentService: Payment
+    private paymentService: Payment,
   ) {
     this.cartProducts = this.cartService.cart;
   }
@@ -59,18 +59,7 @@ export class CartPage {
     return this.getSubtotal() + this.shippingCost - this.getTotalDiscount();
   }
 
-  checkout(){
-    let itemList = this.cartService.getStripeItemList();
-
-    if(itemList.length === 0){
-      alert("Your cart is empty!");
-      return;
-    }
-    
-    this.paymentService
-        .createPayment(itemList)
-        .subscribe((res:any) => {
-          window.location.href = res.url;
-        });
+  checkout() {
+    this.router.navigate(['/checkout']);
   }
 }

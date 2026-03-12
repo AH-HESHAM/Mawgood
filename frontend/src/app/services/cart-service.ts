@@ -102,17 +102,18 @@ export class CartService {
     return;
   }
   getStripeItemList = () => {
-    return this.cart().map(item => {
+    return this.cart().map((item) => {
       return {
         price_data: {
-          currency: "usd",
+          currency: 'usd',
           product_data: {
-            name: item.title
+            id: item.id,
+            name: item.title,
           },
-          unit_amount: item.price
+          unit_amount: item.price,
         },
-        quantity: item.quantity
-      }
+        quantity: item.quantity,
+      };
     });
-  }
+  };
 }
