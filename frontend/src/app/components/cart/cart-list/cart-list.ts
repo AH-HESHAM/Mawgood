@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { CartService } from '../../../services/cart-service';
 import { ICartItem } from '../../../models/icart-item';
 import { FormsModule } from '@angular/forms';
@@ -10,10 +10,13 @@ import { AsyncPipe, DecimalPipe } from '@angular/common';
   templateUrl: './cart-list.html',
   styleUrl: './cart-list.css',
 })
-export class CartList {
+export class CartList implements OnInit {
   cartProducts: Signal<ICartItem[]>;
   constructor(private cartService: CartService) {
     this.cartProducts = this.cartService.cart;
+  }
+  ngOnInit() {
+    this.cartService.loadCartItems();
   }
   increamentQuantity(id: number) {
     const product = this.cartProducts().find((item) => item._id === id);

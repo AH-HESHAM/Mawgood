@@ -13,18 +13,26 @@ export class CartService {
   constructor(
     private httpclient: HttpClient,
     private authservice: AuthService,
-  ) {
+  ) {}
+  loadCartItems() {
+    if (this.authservice.isLoggedIn()) {
+      this.httpclient
+        .get<ICartItem[]>(`${this.baseURL}/cart/${this.authservice.getUserId()}`, {
+          withCredentials: true,
+        })
+        .subscribe((res) => {
+          this.cart.set(res);
+          localStorage.setItem('cart', JSON.stringify(this.cart()));
+        });
+    } else {
+      this.loadLocalCart();
+    }
+  }
+
+  private loadLocalCart() {
     const localCart = localStorage.getItem('cart');
     if (localCart) {
       this.cart.set(JSON.parse(localCart));
-    } else if (authservice.isLoggedIn()) {
-      httpclient
-        .get<
-          ICartItem[]
-        >(`${this.baseURL}/cart/${this.authservice.getUserId()}`, { withCredentials: true })
-        .subscribe((res) => {
-          this.cart.set(res);
-        });
     }
   }
   updateQuantity(id: number, quantity: number) {
@@ -74,7 +82,7 @@ export class CartService {
     if (this.authservice.isLoggedIn()) {
       const userID = this.authservice.getUserId();
       this.httpclient
-        .delete(`${this.baseURL}/cart/${userID}`, { body: { itemId: id }, withCredentials: true })
+        .delete(`${this.baseURL}/cart/${userID}`, { body: { _id: id }, withCredentials: true })
         .subscribe();
     }
     return;
@@ -107,10 +115,9 @@ export class CartService {
         price_data: {
           currency: 'usd',
           product_data: {
-            id: item._id,
             name: item.title,
           },
-          unit_amount: item.price,
+          unit_amount: item.price * 100,
         },
         quantity: item.quantity,
       };

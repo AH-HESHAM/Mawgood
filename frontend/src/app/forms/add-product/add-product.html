@@ -1,5 +1,5 @@
-<div class="editForm">
-  <h2>Edit Product</h2>
+<div class="editForm card">
+  <h2>Add Product</h2>
 
   <form #editForm="ngForm">
     <label>Title</label>
@@ -10,6 +10,7 @@
       required
       minlength="2"
       #title="ngModel"
+      class="form-control"
     />
     <span class="error" *ngIf="title.invalid && title.touched">
       Title is required (min 2 characters)
@@ -23,6 +24,7 @@
       required
       min="0.01"
       #price="ngModel"
+      class="form-control"
     />
     <span class="error" *ngIf="price.invalid && price.touched">
       Price is required and must be positive
@@ -35,8 +37,11 @@
       name="category"
       required
       #category="ngModel"
+      class="form-control"
     />
-    <span class="error" *ngIf="category.invalid && category.touched"> Category is required </span>
+    <span class="error" *ngIf="category.invalid && category.touched">
+      Category is required
+    </span>
 
     <label>Description</label>
     <textarea
@@ -45,6 +50,8 @@
       required
       minlength="10"
       #description="ngModel"
+      class="form-control"
+      rows="3"
     ></textarea>
     <span class="error" *ngIf="description.invalid && description.touched">
       Description is required (min 10 characters)
@@ -58,21 +65,42 @@
       required
       min="0"
       #stock="ngModel"
+      class="form-control"
     />
     <span class="error" *ngIf="stock.invalid && stock.touched">
       Stock is required and must be 0 or more
     </span>
 
     <label>Image URL</label>
-    <input type="text" [(ngModel)]="product.images" name="images" required #images="ngModel" />
-    <span class="error" *ngIf="images.invalid && images.touched"> Image URL is required </span>
+    <input
+      type="text"
+      [(ngModel)]="product.images"
+      name="images"
+      required
+      #images="ngModel"
+      class="form-control"
+    />
+    <span class="error" *ngIf="images.invalid && images.touched">
+      Image URL is required
+    </span>
   </form>
+
   <div class="actions">
-    <app-mybtn
-      text="Save"
-      [btnColor]="editForm.invalid?'gray' :''"
-      (click)="!editForm.invalid ? submit() : {}"
-    ></app-mybtn>
-    <app-mybtn btnColor="red" text="Cancel" (click)="cancel()"></app-mybtn>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="editForm.invalid"
+      (click)="submit()"
+    >
+      Save
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
   </div>
 </div>

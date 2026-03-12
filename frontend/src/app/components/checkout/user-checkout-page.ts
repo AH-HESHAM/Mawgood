@@ -26,7 +26,7 @@ export class UserCheckoutPage implements OnInit {
   isGuest = computed(() => this.authService.user()?.role === 'guest');
 
   ngOnInit(): void {
-    const userData = this.isGuest() ? this.userInfoService.getUserInfo() : null;
+    const userData = !this.isGuest() ? this.userInfoService.getUserInfo() : null;
 
     this.checkoutForm = this.fb.group({
       recipientName: [userData?.recipientName || '', Validators.required],
@@ -45,7 +45,7 @@ export class UserCheckoutPage implements OnInit {
       // TODO send order data to backend (recipientName, phoneNumber, address, paymentMethod)
 
       if (this.checkoutForm.value.paymentMethod === 'cash') {
-        this.router.navigate(['/success']);
+        this.router.navigate(['/payment-success']);
       } else {
         let itemList = this.cartService.getStripeItemList();
 

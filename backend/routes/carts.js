@@ -14,10 +14,10 @@ router.get("/:userId", async (req, res) => {
 
 // add to cart
 router.post("/:userId", async (req, res) => {
-  const { itemId, quantity } = req.body;
+  const { _id, quantity } = req.body;
   const userId = req.params.userId;
   try {
-    const user = await cartService.addToCart(userId, itemId, quantity);
+    const user = await cartService.addToCart(userId, _id, quantity);
     res.json(user.cart);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -38,10 +38,10 @@ router.put("/:userId", async (req, res) => {
 
 // delete from cart
 router.delete("/:userId", async (req, res) => {
-  const { itemId } = req.body;
+  const { _id } = req.body;
   const userId = req.params.userId;
   try {
-    const user = await cartService.removeFromCart(userId, itemId);
+    const user = await cartService.removeFromCart(userId, _id);
     res.json(user.cart);
   } catch (error) {
     res.status(400).json({ message: error.message });
