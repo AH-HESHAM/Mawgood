@@ -11,15 +11,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class Login {
   userRegister: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.userRegister = fb.group(
-      {
-        email: ['', [Validators.required]],
-        password: ['', [Validators.required]],
-      },
-    );
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.userRegister = fb.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
   }
-  
+
   login() {
     this.authService.login(this.userRegister.value).subscribe({
       next: (response) => {

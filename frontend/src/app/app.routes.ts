@@ -34,7 +34,7 @@ export const routes: Routes = [
 
       { path: 'edit-product/:id', component: EditProduct, canActivate: [authGuard] },
       { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
-      { path: 'cart', component: CartPage },
+      { path: 'cart', component: CartPage, canActivate: [authGuard] },
       { path: 'payment-success', component: PaymentSuccess },
       { path: 'payment-cancel', component: PaymentCancel },
       { path: 'checkout', component: UserCheckoutPage },
