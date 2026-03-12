@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IProducts } from '../../models/iproducts';
-import { Mybtn } from '../mybtn/mybtn';
+import { Mybtn } from '../../components/mybtn/mybtn';
 import { CommonModule } from '@angular/common';
 import { DynamicData } from '../../services/dynamic-data';
 
@@ -11,12 +11,15 @@ import { DynamicData } from '../../services/dynamic-data';
   selector: 'app-edit-product',
   imports: [FormsModule, CommonModule, Mybtn],
   templateUrl: './edit-product.html',
-  styleUrl:'./edit-product.css'
+  styleUrl: './edit-product.css',
 })
 export class EditProduct implements OnInit {
   product: IProducts;
 
-  constructor(private router: Router, private dataService:DynamicData) {
+  constructor(
+    private router: Router,
+    private dataService: DynamicData,
+  ) {
     // retrieve state passed from navigate
     const nav = this.router.getCurrentNavigation();
     this.product = nav?.extras?.state?.['product'];
@@ -30,7 +33,7 @@ export class EditProduct implements OnInit {
   }
 
   submit() {
-    this.dataService.update(this.product).subscribe()
+    this.dataService.update(this.product).subscribe();
     this.router.navigate(['/products']);
   }
 

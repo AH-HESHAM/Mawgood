@@ -4,8 +4,6 @@ import { Home } from './components/home/home';
 import { Error } from './components/error/error';
 import { Body } from './components/body/body';
 import { AddProduct } from './forms/add-product/add-product';
-import { UpdateProduct } from './forms/update-product/update-product';
-import { DeleteProduct } from './forms/delete-product/delete-product';
 import { Signup } from './forms/signup-form/signup-form';
 import { adminGuardGuard } from './guards/admin-guard-guard';
 import { Login } from './forms/login/login';
@@ -13,7 +11,7 @@ import { authGuard } from './guards/auth-guard';
 import { CartPage } from './components/cart/cart-page/cart-page';
 import { CheckoutDispatcher } from './components/checkout/checkout-dispatcher/checkout-dispatcher';
 import { AdminPortal } from './components/admin-portal/admin-portal';
-import { EditProduct } from './components/edit-product/edit-product';
+import { EditProduct } from './forms/edit-product/edit-product';
 
 export const routes: Routes = [
   /* Pages WITHOUT layout */
@@ -38,7 +36,7 @@ export const routes: Routes = [
         path: 'checkout',
         component: CheckoutDispatcher,
       },
-    ]
+    ],
   },
 
   { path: '**', component: Error },
