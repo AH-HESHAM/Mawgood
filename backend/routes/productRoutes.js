@@ -54,9 +54,9 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// !!!!!!!!!!!!!!!! not tested yet !!!!!!!!!!!!!!!!!!
 router.post("/", async (req, res) => {
   try {
+    console.log("adding")
     const newProduct = new Product(req.body);
     const savedProduct = await newProduct.save();
 

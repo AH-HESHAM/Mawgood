@@ -13,7 +13,7 @@
   </div>
 
   <img
-    [src]="product.images ? product.images[0] : null"
+    [src]="product.images"
     class="card-img-top"
     alt="not exist"
     appCardImgDirective
@@ -34,7 +34,7 @@
         <app-mybtn
           text="Buy"
           (clicked)="buy(inp, product)"
-          [btnColor]="!validQuantity(+inp.value, product.stock) ? 'gray' : ''"
+          [btnColor]="!validQuantity(+inp.value, product.stock) || product.stock == 0 ? 'gray' : ''"
         >
         </app-mybtn>
         <input

@@ -3,6 +3,9 @@
     @if (getUserRole() != 'seller') {
       <h1>Total Price : {{ TotalPrice }}</h1>
     }
+    @else {
+      <app-mybtn class="btn" text="New Product" (click)="add()"></app-mybtn>
+    }
 
     <app-filters
       (categoryEvent)="receiveCategory($event)"

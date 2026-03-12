@@ -27,7 +27,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
       { path: 'products', component: Body, canActivate: [authGuard] },
-      { path: 'addProduct', component: AddProduct, canActivate: [authGuard, adminGuardGuard] },
+      { path: 'add-product', component: AddProduct, canActivate: [authGuard] },
 
       { path: 'edit-product/:id', component: EditProduct, canActivate: [authGuard] },
       { path: 'admin-portal', component: AdminPortal, canActivate: [authGuard, adminGuardGuard] },
