@@ -1,6 +1,7 @@
 /* container */
 .slider_container {
-  width: 60%;
+  width: 100%;
+  max-width: 900px;
   height: 350px;
   margin: 40px auto;
   position: relative;
