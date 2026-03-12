@@ -107,7 +107,7 @@ export class CartService {
         price_data: {
           currency: 'usd',
           product_data: {
-            id: item.id,
+            id: item._id,
             name: item.title,
           },
           unit_amount: item.price,

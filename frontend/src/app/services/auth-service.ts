@@ -21,10 +21,6 @@ export class AuthService {
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
-
-  getUserId() {
-    return 1234;
-  }
   
   login({
     email,
