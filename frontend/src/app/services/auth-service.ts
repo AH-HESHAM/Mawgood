@@ -7,19 +7,15 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  getUserId() {
-    return "123";
-  }
-  user = signal<{ email: string; role: string } | null>(null);
+  user = signal<{ email: string; role: string; id: string } | null>(null);
   private apiUrl = 'http://localhost:3000/api/auth';
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {}
-  // TODO: change the logic behinf this signal to run true authentication
-  isLoggedIn = signal(false);
 
+  isLoggedIn = computed(() => this.user() !== null);
   isAdmin = computed(() => this.user()?.role === 'admin');
 
   register(user: IUser): Observable<IUser> {
@@ -44,6 +40,10 @@ export class AuthService {
     );
   }
 
+  getUserId() {
+    return this.user()?.id;
+  }
+
   checkAuth() {
     return this.http
       .get(`${this.apiUrl}/me`, {
@@ -52,7 +52,7 @@ export class AuthService {
       .pipe(
         tap({
           next: (response: any) => {
-            this.user.set({ email: response.email, role: response.role });
+            this.user.set({ email: response.email, role: response.role, id: response.id });
             console.log('User authenticated:', response);
           },
         }),
