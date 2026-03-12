@@ -23,10 +23,10 @@ export class UserCheckoutPage implements OnInit {
   private router = inject(Router);
 
   checkoutForm!: FormGroup;
-  isCustomer = computed(() => this.authService.user()?.role === 'customer');
+  isGuest = computed(() => this.authService.user()?.role === 'guest');
 
   ngOnInit(): void {
-    const userData = this.isCustomer() ? this.userInfoService.getUserInfo() : null;
+    const userData = this.isGuest() ? this.userInfoService.getUserInfo() : null;
 
     this.checkoutForm = this.fb.group({
       recipientName: [userData?.recipientName || '', Validators.required],

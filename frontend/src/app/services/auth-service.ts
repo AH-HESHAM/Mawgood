@@ -48,7 +48,7 @@ export class AuthService {
       .pipe(
         tap({
           next: (response: any) => {
-            this.user.set({ email: response.email, role: response.role });
+            this.user.set({ email: response.email, role: response.role, id: response.id });
             console.log('User authenticated:', response);
           },
         }),
