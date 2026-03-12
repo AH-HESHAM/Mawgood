@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { passwordMatched } from '../../validators/passwordValidator';
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, RouterLink],
   templateUrl: './signup-form.html',
   styleUrl: './signup-form.css',
 })

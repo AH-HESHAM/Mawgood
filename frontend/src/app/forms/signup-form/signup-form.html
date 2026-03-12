@@ -1,112 +1,166 @@
-<form action="" [formGroup]="userRegister">
-  <div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">User Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Enter User Name"
-      formControlName="fullName"
-      />
-    </div>
-    <div [hidden]="fullName?.valid || fullName?.untouched">
-      @if (fullName?.errors?.['required']) {
-        <small class="alert alert-danger">this field is required</small>
-      }
-    </div>
-  </div>
+<div class="container">
+  <div class="row align-items-center">
 
-  <div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Email</label>
-      <input
-      type="text"
-      class="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Enter Email"
-      formControlName="email"
-      />
-    </div>
-    <div [hidden]="email?.valid || email?.untouched">
-      @if (email?.errors?.['email']) {
-        <small class="alert alert-danger">enter a valid email</small>
-      }
-      @if (email?.errors?.['required']) {
-        <small class="alert alert-danger">this field is required</small>
-      }
-    </div>
-  </div>
+    <!-- Description -->
+    <div class="col-md-7 pe-md-5">
+      <h1 class="fw-bold mb-3">Join Our Marketplace</h1>
+      <p class="lead text-muted">
+        Create an account to start exploring products or open your own
+        digital store and reach customers instantly.
+      </p>
 
-  <div>
+      <ul class="mt-4">
+        <li>🚀 Start selling products in minutes</li>
+        <li>📦 Manage orders and inventory</li>
+        <li>💳 Secure and simple checkout</li>
+        <li>🌍 Connect with customers everywhere</li>
+      </ul>
+    </div>
 
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Enter Password"
-      formControlName="password"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Confirmed Password </label>
-      <input
-      type="password"
-      class="form-control"
-                [ngClass]="{ 'is-invalid': (confirmedpassword?.invalid && (confirmedpassword?.touched || confirmedpassword?.dirty)) || (userRegister?.errors?.['unMatchedPassword'] && confirmedpassword?.touched) }"
-                id="exampleFormControlInput1"
-      placeholder="Enter Confirmed Password"
-      formControlName="confirmedpassword"
-      />
-    </div>
-    @if (
-      confirmedpassword?.touched &&
-      password?.touched &&
-      (userRegister?.errors?.['unMatchedPassword'] || confirmedpassword?.invalid)
-      ) {
-        <div class="alert alert-danger">
-          @if (confirmedpassword?.errors?.['required']) {
-            <small>this field is required</small>
-          }
-          @if (userRegister?.errors?.['unMatchedPassword']) {
-            <small>confirmedpassword must match password</small>
+    <!-- Signup Card -->
+    <div class="col-md-5">
+      <div class="card shadow-lg p-4">
+        <h3 class="text-center mb-4">Create Account</h3>
+
+        <!-- Your signup form here -->
+        <form [formGroup]="userRegister" (ngSubmit)="Signup()">
+
+      <!-- Full Name -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">User Name</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter User Name"
+          formControlName="fullName"
+        />
+        <div [hidden]="fullName?.valid || fullName?.untouched">
+          @if (fullName?.errors?.['required']) {
+            <small class="text-danger">This field is required</small>
           }
         </div>
-      }
-
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-    <input
-      type="text"
-      class="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Enter User Name"
-      formControlName="phoneNumber"
-      />
       </div>
-      <div [hidden]="phoneNumber?.valid || phoneNumber?.untouched">
-        @if (phoneNumber?.errors?.['required']) {
-          <small class="alert alert-danger">this field is required</small>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Enter Email"
+          formControlName="email"
+        />
+        <div [hidden]="email?.valid || email?.untouched">
+          @if (email?.errors?.['email']) {
+            <small class="text-danger">Enter a valid email</small>
+          }
+          @if (email?.errors?.['required']) {
+            <small class="text-danger">This field is required</small>
+          }
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter Password"
+          formControlName="password"
+        />
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Confirm Password"
+          formControlName="confirmedpassword"
+          [ngClass]="{
+            'is-invalid':
+              (confirmedpassword?.invalid &&
+                (confirmedpassword?.touched || confirmedpassword?.dirty)) ||
+              (userRegister?.errors?.['unMatchedPassword'] &&
+                confirmedpassword?.touched)
+          }"
+        />
+
+        @if (
+          confirmedpassword?.touched &&
+          password?.touched &&
+          (userRegister?.errors?.['unMatchedPassword'] || confirmedpassword?.invalid)
+        ) {
+          <div class="text-danger mt-1">
+            @if (confirmedpassword?.errors?.['required']) {
+              <small>This field is required</small>
+            }
+            @if (userRegister?.errors?.['unMatchedPassword']) {
+              <small>Password confirmation must match password</small>
+            }
+          </div>
         }
       </div>
+
+      <!-- Phone -->
       <div class="mb-3">
-        <label for="role" class="form-label">Role</label>
-        <select
-          id="role"
+        <label class="form-label fw-semibold">Phone Number</label>
+        <input
+          type="text"
           class="form-control"
+          placeholder="Enter Phone Number"
+          formControlName="phoneNumber"
+        />
+        <div [hidden]="phoneNumber?.valid || phoneNumber?.untouched">
+          @if (phoneNumber?.errors?.['required']) {
+            <small class="text-danger">This field is required</small>
+          }
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Role</label>
+        <select
+          class="form-select"
           formControlName="role"
-          [ngClass]="{ 'is-invalid': role?.invalid && (role?.touched || role?.dirty) }"
+          [ngClass]="{
+            'is-invalid': role?.invalid && (role?.touched || role?.dirty)
+          }"
         >
           <option value="" disabled selected>Select a role</option>
           <option value="seller">Seller</option>
           <option value="customer">Customer</option>
         </select>
-        <div class="invalid-feedback" *ngIf="role?.errors && (role?.touched || role?.dirty)">
-          <div *ngIf="role?.errors?.['required']">Role is required.</div>
+
+        <div class="invalid-feedback">
+          Role is required
         </div>
       </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="btn btn-dark w-100 mt-2"
+        [disabled]="userRegister.invalid"
+      >
+        Sign Up
+      </button>
+
+      <!-- Login link -->
+      <p class="text-center mt-3 mb-0">
+        Already have an account?
+        <a routerLink="/login" class="fw-semibold text-decoration-none">
+          Login
+        </a>
+      </p>
+
+    </form>
+
+      </div>
+    </div>
+
   </div>
-  <button class="btn btn-dark" [disabled]="userRegister.invalid" (click)="Signup()">Submit</button>
-</form>
+</div>

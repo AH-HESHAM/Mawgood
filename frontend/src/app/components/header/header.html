@@ -1,50 +1,86 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand">Mawgood</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold fs-4" routerLink="/">
+      🛒 Mawgood
+    </a>
+
+    <!-- Mobile Toggle -->
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Navbar Content -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+
+      <!-- Left Menu -->
+      <ul class="navbar-nav me-auto">
+
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+          <a class="nav-link" routerLink="/">Home</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" routerLink="/products">{{
-            getUserRole() === 'customer' ? 'Products' : 'My Products'
-          }}</a>
+          <a class="nav-link" routerLink="/products">
+            {{ getUserRole() === 'customer' ? 'Products' : 'My Products' }}
+          </a>
         </li>
-        @if (!auth.isLoggedIn()) {
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/signup">Sign Up</a>
-          </li>
-        }
+
         @if (auth.isAdmin()) {
+        <li class="nav-item">
+          <a class="nav-link text-warning" routerLink="/admin-portal">
+            Admin Portal
+          </a>
+        </li>
+        }
+
+      </ul>
+
+      <!-- Right Menu -->
+      <ul class="navbar-nav align-items-center">
+
+        <li class="nav-item me-3">
+          <a class="nav-link position-relative" routerLink="/cart">
+            🛒 Cart
+          </a>
+        </li>
+
+        @if (!auth.isLoggedIn()) {
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-light btn-sm" routerLink="/login">
+              Login
+            </a>
+          </li>
+
           <li class="nav-item">
-            <a class="nav-link" routerLink="/admin-portal">Admin Portal</a>
+            <a class="btn btn-primary btn-sm" routerLink="/signup">
+              Sign Up
+            </a>
           </li>
         }
-        <li>
-          <button class="nav-item" (click)="auth.logout()">Logout</button>
+
+        @if (auth.isLoggedIn()) {
+          <li class="nav-item ms-2">
+            <button class="btn btn-danger btn-sm" (click)="auth.logout()">
+              Logout
+            </button>
+          </li>
+        }
+
+        <li class="nav-item ms-3">
+          <button class="btn btn-outline-light btn-sm" (click)="toggleTheme()">
+            🌙
+          </button>
         </li>
-        <li>
-          <button class="nav-item" (click)="toggleTheme()">Toggle Dark Mode</button>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/cart">cart</a>
-        </li>
+
       </ul>
+
     </div>
   </div>
 </nav>
