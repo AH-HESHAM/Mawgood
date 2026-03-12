@@ -9,6 +9,7 @@ const productRoutes = require("./routes/productRoutes")
 const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middlewares/authMiddleware");
 const userRoutes = require("./routes/UsersRoutes");
+const stripeRoutes = require("./routes/StripeGateway");
 
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/users", userRoutes);
+app.use("/payment", stripeRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
