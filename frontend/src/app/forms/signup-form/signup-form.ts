@@ -22,6 +22,8 @@ export class Signup {
         password: ['', [Validators.required]],
         confirmedpassword: ['', [Validators.required]],
         phoneNumber: ['', [Validators.required]],
+        address: ['', [Validators.required]],
+        paymentMethod: ['', [Validators.required]],
         role: ['', [Validators.required]],
       },
       { validators: [passwordMatched()] },
@@ -44,6 +46,12 @@ export class Signup {
   }
   get phoneNumber() {
     return this.userRegister.get('phoneNumber');
+  }
+  get address() {
+    return this.userRegister.get('address');
+  }
+  get paymentMethod() {
+    return this.userRegister.get('paymentMethod');
   }
   get role() {
     return this.userRegister.get('role');

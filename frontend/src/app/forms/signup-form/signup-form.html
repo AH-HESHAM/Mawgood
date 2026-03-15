@@ -120,6 +120,42 @@
         </div>
       </div>
 
+      <!-- Address -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Address"
+          formControlName="address"
+        />
+        <div [hidden]="address?.valid || address?.untouched">
+          @if (address?.errors?.['required']) {
+            <small class="text-danger">This field is required</small>
+          }
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Preferred Payment Method</label>
+        <select
+          class="form-select"
+          formControlName="paymentMethod"
+          [ngClass]="{
+            'is-invalid': paymentMethod?.invalid && (paymentMethod?.touched || paymentMethod?.dirty)
+          }"
+        >
+          <option value="" disabled selected>Select a payment method</option>
+          <option value="cash">Cash on Delivery</option>
+          <option value="online">Online Payment</option>
+        </select>
+
+        <div class="invalid-feedback">
+          Payment method is required
+        </div>
+      </div>
+
       <!-- Role -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Role</label>

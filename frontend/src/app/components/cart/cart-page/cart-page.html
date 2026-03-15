@@ -25,7 +25,7 @@
                 Coupon "{{ coupon.code }}"
               </span>
               <span class="value"
-                >{{ -(getSubtotal() * coupon.discount) / 100 | number: '1.2-2' }} $</span
+                >{{ -(getSubtotal() * coupon.discountPercentage) / 100 | number: '1.2-2' }} $</span
               >
             </div>
           }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, Injector, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { CartService } from './cart-service';
@@ -14,7 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private cartService: CartService,
+    private injector: Injector,
   ) {}
 
   isLoggedIn = computed(() => this.user() !== null);
@@ -63,8 +63,9 @@ export class AuthService {
         console.log('Logged out successfully');
         this.user.set(null);
         localStorage.removeItem('cart');
-        this.cartService.cart.set([]);
-        this.router.navigate(['/login']);
+        const cartService = this.injector.get(CartService);
+        cartService.cart.set([]);
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error('Error logging out:', error);
@@ -79,4 +80,6 @@ interface IUser {
   password: string;
   role: string;
   phoneNumber: string;
+  address: string;
+  paymentMethod: string;
 }

@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { ChangeDetectorRef, Component, Signal } from '@angular/core';
 import { CartList } from '../cart-list/cart-list';
 import { ICoupon } from '../../../models/icoupon';
 import { CartService } from '../../../services/cart-service';
@@ -26,6 +26,7 @@ export class CartPage {
     private couponService: CouponService,
     private router: Router,
     private paymentService: Payment,
+    private cdr: ChangeDetectorRef,
   ) {
     this.cartProducts = this.cartService.cart;
   }
@@ -34,12 +35,19 @@ export class CartPage {
       alert('Coupon already applied');
       return;
     }
-    const coupon = this.couponService.validateCoupon(code);
-    if (coupon) {
-      this.coupons.push(coupon);
-    } else {
-      alert('Invalid coupon code');
-    }
+    this.couponService.validateCoupon(code).subscribe({
+      next: (coupon: ICoupon | undefined) => {
+        if (coupon) {
+          this.coupons = [...this.coupons, coupon];
+          this.cdr.detectChanges();
+        } else {
+          alert('Invalid coupon code');
+        }
+      },
+      error: () => {
+        alert('Invalid coupon code');
+      },
+    });
   }
   removeCoupon(code: string) {
     this.coupons = this.coupons.filter((coupon) => coupon.code !== code);
@@ -50,7 +58,7 @@ export class CartPage {
 
   private getTotalDiscount() {
     return this.coupons.reduce(
-      (total, coupon) => total + (this.getSubtotal() * coupon.discount) / 100,
+      (total, coupon) => total + (this.getSubtotal() * coupon.discountPercentage) / 100,
       0,
     );
   }
