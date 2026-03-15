@@ -1,17 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserInfoService {
-  userData = {
-    recipientName: 'John Doe',
-    phoneNumber: '0123456789',
-    address: '123 Main St, Springfield',
-    paymentMethod: 'cash',
-  };
+  constructor(private httpClient: HttpClient) {}
 
   getUserInfo() {
-    return this.userData;
+    return this.httpClient.get('http://localhost:3000/user-info');
   }
 }

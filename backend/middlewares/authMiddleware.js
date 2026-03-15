@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 function authMiddleware(req, res, next) {
-
   if (
     req.path === "/api/auth/login" ||
     req.path === "/api/auth/register" ||
-    req.path === "/api/auth/logout" 
+    req.path === "/api/auth/logout"
   ) {
     return next();
   }
@@ -13,6 +12,10 @@ function authMiddleware(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
+    // skip this path only for the guest checkout
+    if (req.path === "/payment/create-cash-payment") {
+      return next();
+    }
     return res.status(401).json({ message: "Unauthorized" });
   }
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { CartService } from './cart-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private cartService: CartService,
   ) {}
 
   isLoggedIn = computed(() => this.user() !== null);
@@ -21,7 +23,7 @@ export class AuthService {
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/register`, user);
   }
-  
+
   login({
     email,
     password,
@@ -59,6 +61,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         console.log('Logged out successfully');
+        this.user.set(null);
+        localStorage.removeItem('cart');
+        this.cartService.cart.set([]);
         this.router.navigate(['/login']);
       },
       error: (error) => {

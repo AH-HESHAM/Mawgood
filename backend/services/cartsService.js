@@ -66,9 +66,24 @@ async function getUserCart(userId) {
   }
 }
 
+async function clearCart(userId) {
+  try {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    user.cart = [];
+    await user.save();
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   addToCart,
   removeFromCart,
   updateCart,
   getUserCart,
+  clearCart,
 };
