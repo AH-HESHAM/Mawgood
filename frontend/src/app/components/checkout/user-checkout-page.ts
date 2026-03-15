@@ -23,29 +23,44 @@ export class UserCheckoutPage implements OnInit {
   private router = inject(Router);
 
   checkoutForm!: FormGroup;
-  isGuest = computed(() => this.authService.user()?.role === 'guest');
+  isGuest = computed(() => this.authService.user() === null);
 
   ngOnInit(): void {
     const userData = !this.isGuest() ? this.userInfoService.getUserInfo() : null;
 
-    this.checkoutForm = this.fb.group({
-      recipientName: [userData?.recipientName || '', Validators.required],
-      phoneNumber: [
-        userData?.phoneNumber || '',
-        [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)],
-      ],
-      address: [userData?.address || '', Validators.required],
-      paymentMethod: [userData?.paymentMethod || 'online', Validators.required],
+    userData?.subscribe((data: any) => {
+      this.checkoutForm = this.fb.group({
+        recipientName: [data?.recipientName || '', Validators.required],
+        phoneNumber: [
+          data?.phoneNumber || '',
+          [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)],
+        ],
+        address: [data?.address || '', Validators.required],
+        paymentMethod: [data?.paymentMethod || 'online', Validators.required],
+      });
     });
   }
 
   onSubmit() {
     if (this.checkoutForm.valid) {
       console.log('Form submitted:', this.checkoutForm.value);
-      // TODO send order data to backend (recipientName, phoneNumber, address, paymentMethod)
+      // TODO send order data to backend (recipientName, phoneNumber, address, paymentMethod) [[order management needs to be implemented first]]
 
       if (this.checkoutForm.value.paymentMethod === 'cash') {
-        this.router.navigate(['/payment-success']);
+        this.paymentService
+          .createCashPayment(this.cartService.getStripeItemList())
+          .subscribe((res: any) => {
+            // if success
+            if (res.message === 'Payment successful') {
+              this.cartService.cart.set([]);
+
+              localStorage.removeItem('cart');
+
+              this.router.navigate(['/payment-success']);
+            } else {
+              this.router.navigate(['/payment-cancel']);
+            }
+          });
       } else {
         let itemList = this.cartService.getStripeItemList();
 

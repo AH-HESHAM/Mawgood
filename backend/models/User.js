@@ -54,6 +54,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+    enum: ["cash", "online"],
+  },
   cart: [cartItemSchema],
   usedPromoCodes: [usedPromoCodesSchema],
 });

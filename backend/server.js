@@ -11,7 +11,7 @@ const authMiddleware = require("./middlewares/authMiddleware");
 const userRoutes = require("./routes/UsersRoutes");
 const stripeRoutes = require("./routes/StripeGateway");
 const promoCodesRoutes = require("./routes/promoCodesRoute");
-
+const userInfoRoutes = require("./routes/userInfo");
 const cartRoutes = require("./routes/carts");
 dotenv.config();
 
@@ -37,6 +37,7 @@ app.use("/users", userRoutes);
 app.use("/payment", stripeRoutes);
 app.use("/cart", cartRoutes);
 app.use("/promocodes", promoCodesRoutes);
+app.use("/user-info", userInfoRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
